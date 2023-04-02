@@ -18,6 +18,9 @@ public class NewUserFrame extends JFrame {
 
     public void initialize() {
 
+        // Initialize frame to display
+        JFrame mainFrame = new JFrame();
+
         // Form Panel
         JPanel formPanel = new JPanel(); // Create new instance of JPanel class
         formPanel.setLayout(new GridBagLayout());
@@ -91,13 +94,15 @@ public class NewUserFrame extends JFrame {
         formPanel.add(btnCreate, c);
 
         // Back to login Button
-        JButton btnLogin = new JButton("Login"); // Create new JButton instance for login button
+        JButton btnLogin = new JButton("Done"); // Create new JButton instance for login button
         btnLogin.setFont(mainFont);
         btnLogin.setPreferredSize(new Dimension(150, 40)); // Set button size
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // return to login
+                mainFrame.dispose(); // When new user created, dispose current frame and return to login menu
+                LoginFrame temp = new LoginFrame(); // create new login menu to return to after new user is created
+                temp.initialize();
             }
         });
         c.gridx = 1;
@@ -126,12 +131,13 @@ public class NewUserFrame extends JFrame {
         logoPanel.add(lbLogo, logoConstraints);
         mainPanel.add(logoPanel, BorderLayout.WEST);
 
-        add(mainPanel);
-        setTitle("Login to the UWO Campus Map!");
-        setSize(800, 400); // Set dimensions for screen
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Exit application when frame is closed
-        setLocationRelativeTo(null); // Center the window on the screen
-        setVisible(true);
+        // Add all components to frame
+        mainFrame.add(mainPanel);
+        mainFrame.setTitle("Login to the UWO Campus Map!");
+        mainFrame.setSize(800, 400); // Set dimensions for screen
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Exit application when frame is closed
+        mainFrame.setLocationRelativeTo(null); // Center the window on the screen
+        mainFrame.setVisible(true);
 
     }
 }

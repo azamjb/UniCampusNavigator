@@ -141,7 +141,7 @@ public class Maps extends JFrame {
     }
 
     
-    // Display middlesex floor plan -- https://www.youtube.com/watch?v=ntirmRhy6Fw&ab_channel=HussainAljafer
+    // Display middlesex floor plan 
     public void displayMC(String floor){
 
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12); 

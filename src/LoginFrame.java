@@ -18,6 +18,9 @@ public class LoginFrame extends JFrame {
     JTextField UsernameInput, PasswordInput; // Declare variables for username and password tex input
 
     public void initialize() {
+
+        JFrame mainFrame = new JFrame();
+
         // Form Panel
         JPanel formPanel = new JPanel(); // Create new instance of JPanel class
         formPanel.setLayout(new GridBagLayout());
@@ -106,6 +109,7 @@ public class LoginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 NewUserFrame newUser = new NewUserFrame();
+                mainFrame.dispose();
                 newUser.initialize();
             }
         });
@@ -135,12 +139,13 @@ public class LoginFrame extends JFrame {
         logoPanel.add(lbLogo, logoConstraints);
         mainPanel.add(logoPanel, BorderLayout.WEST);
 
-        add(mainPanel);
-        setTitle("Login to the UWO Campus Map!");
-        setSize(800, 400); // Set dimensions for screen
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Exit application when frame is closed
-        setLocationRelativeTo(null); // Center the window on the screen
-        setVisible(true);
+        // Add all components to frame
+        mainFrame.add(mainPanel);
+        mainFrame.setTitle("Login to the UWO Campus Map!");
+        mainFrame.setSize(800, 400); // Set dimensions for screen
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Exit application when frame is closed
+        mainFrame.setLocationRelativeTo(null); // Center the window on the screen
+        mainFrame.setVisible(true);
     }
 
     public static void main(String[] args) {
