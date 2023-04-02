@@ -179,6 +179,7 @@ public class Maps extends JFrame {
         
         // Set up drop down for selecting floors
         JComboBox<String> floorMenu = new JComboBox<>();
+        Map<String, Integer> floors = Map.of("Ground Floor", 0, "1st Floor", 1, "2nd Floor", 2, "3rd Floor", 3, "4th Floor", 4);
         floorMenu.addItem("Ground Floor");
         floorMenu.addItem("1st Floor");
         floorMenu.addItem("2nd Floor");
@@ -189,7 +190,6 @@ public class Maps extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String selectedFloor = (String) floorMenu.getSelectedItem();
                 changeFloor(mcDict.get(selectedFloor));
-                floorMenu.setSelectedItem(selectedFloor);
                 mainFrame.dispose();
             }
         });

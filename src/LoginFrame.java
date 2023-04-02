@@ -83,7 +83,7 @@ public class LoginFrame extends JFrame {
 
                     // Use the dictionary to work login
                     if (dictionary.get(username).equals(password)) {
-                        System.out.println("login successful");
+                        Maps m = new Maps(); // if login is successful, proceed with the program
                     } else
                         System.out.println("login failed");
 
