@@ -13,9 +13,9 @@ import javax.imageio.ImageIO;
 public class Maps extends JFrame {
 
     // File names for all the floor
-    Map<String, String> mcDict = Map.of("Ground Floor", "mc1.png", "1st Floor", "mc1.png", "2nd Floor", "mc2.png", "3rd Floor", "mc3.png", "4th Floor", "mc4.png");
-    Map<String, String> wscDict = Map.of("Ground Floor", "wscgf.png", "1st Floor", "wsc1.png", "2nd Floor", "wsc2.png", "3rd Floor", "wsc3.png");
-    Map<String, String> tcDict = Map.of("1st Floor", "tc1.png", "2nd Floor", "tc2.png", "3rd Floor", "tc3.png", "4th Floor", "tc4.png");
+    Map<String, String> mcDict = Map.of("Ground Floor", "images/mc1.png", "1st Floor", "images/mc1.png", "2nd Floor", "images/mc2.png", "3rd Floor", "images/mc3.png", "4th Floor", "images/mc4.png");
+    Map<String, String> wscDict = Map.of("Ground Floor", "images/wscgf.png", "1st Floor", "images/wsc1.png", "2nd Floor", "images/wsc2.png", "3rd Floor", "images/wsc3.png");
+    Map<String, String> tcDict = Map.of("1st Floor", "images/tc1.png", "2nd Floor", "images/tc2.png", "3rd Floor", "images/tc3.png", "4th Floor", "images/tc4.png");
     String currentBuilding = "";
 
     
@@ -89,7 +89,7 @@ public class Maps extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // if Middlesex button clicked, display the map
                 currentBuilding = "Middlesex College";
-                displayMC("mcgf.png");
+                displayMC("images/mcgf.png");
             }
         });
         button2.addActionListener(new ActionListener() {
@@ -97,14 +97,14 @@ public class Maps extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // if Middlesex button clicked, display the map
                 currentBuilding = "Western Science Centre";
-                displayWSC("wscgf.png");
+                displayWSC("images/wscgf.png");
             }
         });
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             currentBuilding = "Talbot College";
-            displayTC("tc1.png");
+            displayTC("images/tc1.png");
             }
         });
 

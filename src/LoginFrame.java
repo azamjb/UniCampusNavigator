@@ -122,7 +122,7 @@ public class LoginFrame extends JFrame {
         mainPanel.add(formPanel, BorderLayout.CENTER); // Add form panel to main panel, in center region
 
         // Logo Panel
-        ImageIcon logoIcon = new ImageIcon("westernlogo.jpg"); // Load image from relative path as ImageIcon
+        ImageIcon logoIcon = new ImageIcon("images/westernlogo.jpg"); // Load image from relative path as ImageIcon
         Image logoImage = logoIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH); // Resize image
         logoIcon = new ImageIcon(logoImage);
         JLabel lbLogo = new JLabel(logoIcon); // Create new JLABEL object, sets its icon to LogoIcon object

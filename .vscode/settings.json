@@ -1,10 +1,11 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src",
+        "lib"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\ablyt\\Downloads\\json-simple-1.1.1.jar",
-        "c:\\Users\\ablyt\\Downloads\\json-20180813.jar",
         "/Users/shadiseaidoun/Downloads/json-20180813.jar",
         "/Users/shadiseaidoun/Downloads/json-simple-1.1.1.jar"
     ]
