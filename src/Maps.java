@@ -62,18 +62,7 @@ public class Maps extends JFrame {
         topPanel.add(messagePanel);
 
         // Add campus picture for completion of frame
-        // Logo Panel
-        ImageIcon logoIcon = new ImageIcon("campus.png"); // Load image from relative path as ImageIcon
-        Image logoImage = logoIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH); // Resize image
-        logoIcon = new ImageIcon(logoImage);
-        JLabel lbLogo = new JLabel(logoIcon); // Create new JLABEL object, sets its icon to LogoIcon object
-        GridBagConstraints logoConstraints = new GridBagConstraints();
-        logoConstraints.anchor = GridBagConstraints.CENTER; // Specifies how image icon should be positioned within its
-         
-        JPanel logoPanel = new JPanel();
-        logoPanel.setLayout(new GridBagLayout());
-        logoPanel.setBackground(new Color(79, 38, 130)); // Set panel background colour to Western University purple
-        logoPanel.add(lbLogo, logoConstraints);
+        // FIX ME
         
 
         // Add the welcome and message panel to the north of the formPanel
