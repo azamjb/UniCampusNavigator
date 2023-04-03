@@ -126,13 +126,12 @@ public class LoginFrame extends JFrame {
         mainPanel.add(formPanel, BorderLayout.CENTER); // Add form panel to main panel, in center region
 
         // Logo Panel
-        ImageIcon logoIcon = new ImageIcon("images/westernlogo.jpg"); // Load image from relative path as ImageIcon
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/images/westernlogo.jpg")); // Load Western Logo
         Image logoImage = logoIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH); // Resize image
         logoIcon = new ImageIcon(logoImage);
         JLabel lbLogo = new JLabel(logoIcon); // Create new JLABEL object, sets its icon to LogoIcon object
         GridBagConstraints logoConstraints = new GridBagConstraints();
-        logoConstraints.anchor = GridBagConstraints.CENTER; // Specifies how image icon should be positioned within its
-                                                            // cell
+        logoConstraints.anchor = GridBagConstraints.CENTER; // Specifies how image icon should be positioned within its cell
         JPanel logoPanel = new JPanel();
         logoPanel.setLayout(new GridBagLayout());
         logoPanel.setBackground(new Color(79, 38, 130)); // Set panel background colour to Western University purple

@@ -62,7 +62,24 @@ public class Maps extends JFrame {
         topPanel.add(messagePanel);
 
         // Add campus picture for completion of frame
-        // FIX ME
+        BufferedImage campusImage;
+        try {
+            campusImage = ImageIO.read(getClass().getResource("images/westerncampus.jpg"));
+
+            int newWidth = 490; 
+            int newHeight = 210; 
+            Image scaledImage = campusImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            ImageIcon imageIcon = new ImageIcon(scaledImage);
+            JLabel campusLabel = new JLabel(imageIcon);
+            campusLabel.setHorizontalAlignment(JLabel.CENTER);
+            JPanel imagePanel = new JPanel(new BorderLayout());
+            imagePanel.setBackground(new Color(79, 38, 130));
+            imagePanel.add(campusLabel, BorderLayout.CENTER);
+            imagePanel.setBorder(BorderFactory.createEmptyBorder(0, 60, 5, 0));
+            formPanel.add(imagePanel, BorderLayout.EAST);
+        } catch (IOException e) {
+            System.out.println("Image not found.");
+        }
         
 
         // Add the welcome and message panel to the north of the formPanel
