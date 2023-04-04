@@ -206,7 +206,7 @@ public class Maps {
                 if (floorNum.equals(floor) && bldName.equals("Middlesex College")) {
                     POIMarker poi1 = new POIMarker(description);
                     poi1.setSize(poi1.getPreferredSize());
-                    poi1.setLocation(xVal, yVal - poi1.getHeight());
+                    poi1.setLocation(1, 2 - poi1.getHeight());
                     mapPane.add(poi1);
                 }
             }
@@ -224,7 +224,7 @@ public class Maps {
                 if (floorNum.equals(floor) && bldName.equals("Middlesex College")) {
                     POIMarker poi1 = new POIMarker(description);
                     poi1.setSize(poi1.getPreferredSize());
-                    poi1.setLocation(xVal, yVal - poi1.getHeight());
+                    poi1.setLocation(1, 2 - poi1.getHeight());
                     mapPane.add(poi1);
                 }
             }
@@ -502,7 +502,8 @@ public class Maps {
         });
     }
 
-    public void writePOI(String jpgName, String xVal, String yVal, String floorNum, String POIType, String POIName,
+    public void writePOI(String jpgName, String xVal, String yVal, String bldName, String floorNum, String POIType,
+            String POIName,
             String description,
             String roomNumString) {
 
@@ -519,6 +520,7 @@ public class Maps {
             POIarr.put(jpgName);
             POIarr.put(xVal);
             POIarr.put(yVal);
+            POIarr.put(bldName);
             POIarr.put(floorNum);
             POIarr.put(POIType);
             POIarr.put(POIName);
