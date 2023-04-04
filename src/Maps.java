@@ -40,12 +40,12 @@ public class Maps {
         // Json file name from username initialization
         temp = new LoginFrame(); // create new login frame object to call the static username object
         userName = temp.getUserStr();
+        // writePOI("1", "2", "3", "4", "5", "6", "7");
     }
 
     // Prompt the user to select between three buildings to navigate through floor
     // plan
     public void buildingSelect() {
-
         Font mainFont = new Font("Segoe print", Font.BOLD, 25);
         Dimension buttonSize = new Dimension(170, 75);
         JFrame mainFrame = new JFrame();
@@ -195,8 +195,13 @@ public class Maps {
             JScrollPane scrollPane = new JScrollPane(mapPane);
             coordinates(scrollPane);
             mainFrame.add(scrollPane);
-        } 
-        catch (Exception e) {
+
+            // loop for poi hashmaps
+            // 1: admin hash
+            for (int i = 0; i < getAdminPOIHashMap().size(); i++) {
+
+            }
+        } catch (Exception e) {
             System.out.println("Image not found.");
         }
 
@@ -260,8 +265,7 @@ public class Maps {
             JScrollPane scrollPane = new JScrollPane(mapPane);
             coordinates(scrollPane);
             mainFrame.add(scrollPane);
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Image not found.");
         }
 
@@ -323,8 +327,7 @@ public class Maps {
             JScrollPane scrollPane = new JScrollPane(mapPane);
             coordinates(scrollPane);
             mainFrame.add(scrollPane);
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Image not found.");
         }
 
@@ -391,11 +394,10 @@ public class Maps {
         });
     }
 
-    private void writePOI(String jpgName, String xyVal, String floorNum, String POIType, String POIName,
+    public void writePOI(String jpgName, String xVal, String yVal, String floorNum, String POIType, String POIName,
             String description,
             String roomNumString) {
-        // "jpg Name", "x.y", "building name", "floor num", "poi type/name",
-        // "description", "room #"
+
         String filename = this.userName + ".json";
         try {
             // Read existing data from file
@@ -407,7 +409,8 @@ public class Maps {
             String key = Integer.toString(keysCount);
             JSONArray POIarr = new JSONArray();
             POIarr.put(jpgName);
-            POIarr.put(xyVal);
+            POIarr.put(xVal);
+            POIarr.put(yVal);
             POIarr.put(floorNum);
             POIarr.put(POIType);
             POIarr.put(POIName);
@@ -423,7 +426,7 @@ public class Maps {
         }
     }
 
-    private Map<String, String[]> getPOIHashMap() {
+    private Map<String, String[]> getUserPOIHashMap() {
         // turning json into a dictionary
         String filename = this.userName + ".json";
         try {
@@ -449,8 +452,35 @@ public class Maps {
         return null;
     }
 
+    private Map<String, String[]> getAdminPOIHashMap() {
+        // turning json into a dictionary
+        String filename = "admin.json";
+        try {
+            // file contents into a byte array
+            byte[] bytes = Files.readAllBytes(Paths.get(filename));
+            // byte array to string with UTF-8 encoding
+            String jsonString = new String(bytes, "UTF-8");
+            // JSON string to Map with org.json library
+            JSONObject jsonObject = new JSONObject(jsonString);
+            Map<String, String[]> dictionary = new HashMap<>();
+            for (String key : jsonObject.keySet()) {
+                JSONArray jsonArray = jsonObject.getJSONArray(key);
+                String[] strArr = new String[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    strArr[i] = jsonArray.getString(i);
+                }
+                dictionary.put(key, strArr);
+            }
+            return dictionary;
+        } catch (IOException error) {
+            System.out.println("Error reading file: " + error.getMessage());
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         Maps m = new Maps();
+        m.writePOI("1", "2", "3", "4", "5", "6", "7");
     }
 
 }
