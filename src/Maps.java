@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.image.BufferedImage;
@@ -189,11 +190,6 @@ public class Maps {
         try {
             MapPane mapPane = new MapPane(floor);
 
-            // POIMarker poi = new POIMarker("temp desc");
-            // poi.setSize(poi.getPreferredSize());
-            // poi.setLocation(700, 500 - poi.getHeight());
-            // mapPane.add(poi);
-
             // loop for poi hashmaps
             // 1: admin hash
             for (int i = 0; i < getAdminPOIHashMap().size(); i++) {
@@ -206,10 +202,12 @@ public class Maps {
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
                 } else {
+                    String name = valArr[6];
                     String description = valArr[7];
+                    String num = valArr[8];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
-                    POIMarker poi1 = new POIMarker(description);
+                    POIMarker poi1 = new POIMarker(description, name, num);
                     poi1.setSize(poi1.getPreferredSize());
                     poi1.setLocation(xVal, yVal);
                     mapPane.add(poi1);
@@ -255,11 +253,25 @@ public class Maps {
             }
         });
 
+        ArrayList<String[]> POIList = listofPOIs();
+
+        // Create a new button for opening the Search panel
+        JButton searchButton = new JButton("Open Search Menu");
+        searchButton.setPreferredSize(new Dimension(150, 30));
+        // Add an action listener to the button
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Search search = new Search(POIList, floorName[1]);
+            }
+        });
+
         // Set up frame
         JPanel menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         menuPanel.add(Box.createHorizontalGlue()); // Add glue to push button to the left
         menuPanel.add(backButton);
         menuPanel.add(floorMenu);
+        menuPanel.add(searchButton);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -278,10 +290,6 @@ public class Maps {
 
         try {
             MapPane mapPane = new MapPane(floor);
-            // POIMarker poi = new POIMarker();
-            // poi.setSize(poi.getPreferredSize());
-            // poi.setLocation(700, 500 - poi.getHeight());
-            // mapPane.add(poi);
 
             // loop for poi hashmaps
             // 1: admin hash
@@ -295,10 +303,12 @@ public class Maps {
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
                 } else {
+                    String name = valArr[6];
                     String description = valArr[7];
+                    String num = valArr[8];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
-                    POIMarker poi1 = new POIMarker(description);
+                    POIMarker poi1 = new POIMarker(description, name, num);
                     poi1.setSize(poi1.getPreferredSize());
                     poi1.setLocation(xVal, yVal);
                     mapPane.add(poi1);
@@ -342,11 +352,25 @@ public class Maps {
             }
         });
 
+        ArrayList<String[]> POIList = listofPOIs();
+
+        // Create a new button for opening the Search panel
+        JButton searchButton = new JButton("Open Search Menu");
+        searchButton.setPreferredSize(new Dimension(150, 30));
+        // Add an action listener to the button
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Search search = new Search(POIList, floorName[1]);
+            }
+        });
+
         // Set up frame
         JPanel menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         menuPanel.add(Box.createHorizontalGlue()); // Add glue to push button to the left
         menuPanel.add(backButton);
         menuPanel.add(floorMenu);
+        menuPanel.add(searchButton);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -365,10 +389,6 @@ public class Maps {
 
         try {
             MapPane mapPane = new MapPane(floor);
-            // POIMarker poi = new POIMarker();
-            // poi.setSize(poi.getPreferredSize());
-            // poi.setLocation(700, 500 - poi.getHeight());
-            // mapPane.add(poi);
 
             // loop for poi hashmaps
             // 1: admin hash
@@ -382,10 +402,12 @@ public class Maps {
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
                 } else {
+                    String name = valArr[6];
                     String description = valArr[7];
+                    String num = valArr[8];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
-                    POIMarker poi1 = new POIMarker(description);
+                    POIMarker poi1 = new POIMarker(description, name, num);
                     poi1.setSize(poi1.getPreferredSize());
                     poi1.setLocation(xVal, yVal);
                     mapPane.add(poi1);
@@ -428,12 +450,25 @@ public class Maps {
                 mainFrame.dispose();
             }
         });
+        ArrayList<String[]> POIList = listofPOIs();
+
+        // Create a new button for opening the Search panel
+        JButton searchButton = new JButton("Open Search Menu");
+        searchButton.setPreferredSize(new Dimension(150, 30));
+        // Add an action listener to the button
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Search search = new Search(POIList, floorName[1]);
+            }
+        });
 
         // Set up frame
         JPanel menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         menuPanel.add(Box.createHorizontalGlue()); // Add glue to push button to the left
         menuPanel.add(backButton);
         menuPanel.add(floorMenu);
+        menuPanel.add(searchButton);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -556,6 +591,36 @@ public class Maps {
             System.out.println("Error reading file: " + error.getMessage());
         }
         return null;
+    }
+
+    // creates an array list of all POIs on all Maps, does not allow duplicates
+    public ArrayList<String[]> listofPOIs() {
+        ArrayList<String[]> listofPOIs = new ArrayList<>();
+
+        for (int i = 1; i < getAdminPOIHashMap().size(); i++) {
+            Map<String, String[]> adminMap = getAdminPOIHashMap();
+            String intStr = String.valueOf(i);
+            String[] valArr = adminMap.get(intStr);
+            listofPOIs.add(valArr);
+        }
+        for (int i = 1; i < getUserPOIHashMap().size(); i++) {
+            Map<String, String[]> userMap = getUserPOIHashMap();
+            String intStr = String.valueOf(i);
+            String[] val2Arr = userMap.get(intStr);
+            // check to see if it is a duplicate before adding to the list
+            if (i < listofPOIs.size()) {
+                if (!listofPOIs.get(i)[3].equals(val2Arr[3]) && listofPOIs.get(i)[7].equals(val2Arr[7])) {
+                    listofPOIs.add(val2Arr);   
+                }
+                else {
+                    continue;
+                }
+            }
+            else {
+                continue;
+            }
+        }
+        return listofPOIs;
     }
 
     public static void main(String[] args) {
