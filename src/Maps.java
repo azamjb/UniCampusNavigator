@@ -185,10 +185,9 @@ public class Maps {
                                                                      // program
 
         String[] floorName = floor.split("/");
-        
+
         try {
             MapPane mapPane = new MapPane(floor);
-            
 
             // POIMarker poi = new POIMarker("temp desc");
             // poi.setSize(poi.getPreferredSize());
@@ -206,8 +205,7 @@ public class Maps {
 
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
-                }
-                else {
+                } else {
                     String description = valArr[7];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
@@ -296,8 +294,7 @@ public class Maps {
 
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
-                }
-                else {
+                } else {
                     String description = valArr[7];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
@@ -307,7 +304,7 @@ public class Maps {
                     mapPane.add(poi1);
                 }
             }
-            
+
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
             coordinates(scrollPane);
@@ -365,7 +362,7 @@ public class Maps {
                                                                      // program
 
         String[] floorName = floor.split("/");
-        
+
         try {
             MapPane mapPane = new MapPane(floor);
             // POIMarker poi = new POIMarker();
@@ -384,8 +381,7 @@ public class Maps {
 
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
-                }
-                else {
+                } else {
                     String description = valArr[7];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
@@ -395,7 +391,7 @@ public class Maps {
                     mapPane.add(poi1);
                 }
             }
-            
+
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
             coordinates(scrollPane);
@@ -463,6 +459,15 @@ public class Maps {
                 int x = e.getX() + pane.getHorizontalScrollBar().getValue();
                 int y = e.getY() + pane.getVerticalScrollBar().getValue();
                 System.out.println("Clicked at (" + x + ", " + y + ")");
+                int result = JOptionPane.showConfirmDialog(pane, "Place a new POI here?", "new poi",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.YES_OPTION) {
+                    String xVal = Integer.toString(x);
+                    String yVal = Integer.toString(y);
+                    newUserPOI m = new newUserPOI();
+                    m.initialize(xVal, yVal);
+                }
             }
         });
     }

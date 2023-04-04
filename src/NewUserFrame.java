@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 import javax.swing.*;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class NewUserFrame extends JFrame {
@@ -87,6 +88,19 @@ public class NewUserFrame extends JFrame {
                     // Create user specific json file for POIs
                     JSONObject jsonObj = new JSONObject();
                     String fileName = newUsername + ".json";
+                    // Add new data to JSONObject
+                    JSONArray POIarr = new JSONArray();
+                    POIarr.put("0");
+                    POIarr.put("0");
+                    POIarr.put("0");
+                    POIarr.put("0");
+                    POIarr.put("0");
+                    POIarr.put("0");
+                    POIarr.put("0");
+                    POIarr.put("0");
+                    POIarr.put("0");
+
+                    jsonObj.put("0", POIarr);
                     try (FileWriter fileWriter = new FileWriter(fileName)) {
                         fileWriter.write(jsonObj.toString());
                         System.out.println("Successfully created empty JSON file: " + fileName);
