@@ -6,6 +6,8 @@ import org.json.JSONObject;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.image.BufferedImage;
@@ -191,6 +193,7 @@ public class Maps {
             mapPane.add(poi);
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
+            coordinates(scrollPane);
             mainFrame.add(scrollPane);
         } 
         catch (Exception e) {
@@ -255,6 +258,7 @@ public class Maps {
             mapPane.add(poi);
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
+            coordinates(scrollPane);
             mainFrame.add(scrollPane);
         } 
         catch (Exception e) {
@@ -317,6 +321,7 @@ public class Maps {
             mapPane.add(poi);
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
+            coordinates(scrollPane);
             mainFrame.add(scrollPane);
         } 
         catch (Exception e) {
@@ -372,6 +377,18 @@ public class Maps {
         } else {
             displayTC(floor);
         }
+    }
+
+    // Get coordinates of where the POI's need to be placed
+    public void coordinates(JScrollPane pane) {
+        pane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX() + pane.getHorizontalScrollBar().getValue();
+                int y = e.getY() + pane.getVerticalScrollBar().getValue();
+                System.out.println("Clicked at (" + x + ", " + y + ")");
+            }
+        });
     }
 
     private void writePOI(String jpgName, String xyVal, String floorNum, String POIType, String POIName,
