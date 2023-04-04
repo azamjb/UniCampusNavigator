@@ -588,7 +588,6 @@ public class Maps {
 
     public static void main(String[] args) {
         Maps m = new Maps();
-        m.writePOI("1", "2", "3", "4", "5", "6", "7");
     }
 
 }
