@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 // https://stackoverflow.com/questions/14705684/placing-a-marker-within-the-image
 public class POIMarker extends JLabel {
-    public POIMarker() {
+    public POIMarker(String desc) {
         try {
             setIcon(new ImageIcon(ImageIO.read(getClass().getResource("images/poi.png"))));
         } catch (IOException ex) {
@@ -18,12 +18,12 @@ public class POIMarker extends JLabel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                showPopup(e);
+                showPopup(e, desc);
             }
         });
     }
 
-    private void showPopup(MouseEvent e) {
-        JOptionPane.showMessageDialog(null, "Information about this POI", "POI Info", JOptionPane.INFORMATION_MESSAGE);
+    private void showPopup(MouseEvent e, String desc) {
+        JOptionPane.showMessageDialog(null, desc, "POI Info", JOptionPane.INFORMATION_MESSAGE);
     }
 }

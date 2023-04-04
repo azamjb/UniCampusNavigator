@@ -187,20 +187,52 @@ public class Maps {
 
         try {
             MapPane mapPane = new MapPane(floor);
-            POIMarker poi = new POIMarker();
-            poi.setSize(poi.getPreferredSize());
-            poi.setLocation(700, 500 - poi.getHeight());
-            mapPane.add(poi);
-            mainFrame.add(mapPane);
-            JScrollPane scrollPane = new JScrollPane(mapPane);
-            coordinates(scrollPane);
-            mainFrame.add(scrollPane);
+            // POIMarker poi = new POIMarker("temp desc");
+            // poi.setSize(poi.getPreferredSize());
+            // poi.setLocation(700, 500 - poi.getHeight());
+            // mapPane.add(poi);
 
             // loop for poi hashmaps
             // 1: admin hash
             for (int i = 0; i < getAdminPOIHashMap().size(); i++) {
-
+                Map<String, String[]> adminMap = getAdminPOIHashMap();
+                String intStr = Integer.toString(i);
+                String[] valArr = adminMap.get(intStr);
+                String bldName = valArr[3];
+                String floorNum = valArr[4];
+                String description = valArr[7];
+                int xVal = Integer.parseInt(valArr[1]);
+                int yVal = Integer.parseInt(valArr[2]);
+                if (floorNum.equals(floor) && bldName.equals("Middlesex College")) {
+                    POIMarker poi1 = new POIMarker(description);
+                    poi1.setSize(poi1.getPreferredSize());
+                    poi1.setLocation(xVal, yVal - poi1.getHeight());
+                    mapPane.add(poi1);
+                }
             }
+
+            // 2: user hash
+            for (int i = 0; i < getUserPOIHashMap().size(); i++) {
+                Map<String, String[]> userMap = getUserPOIHashMap();
+                String intStr = Integer.toString(i);
+                String[] valArr = userMap.get(intStr);
+                String bldName = valArr[3];
+                String floorNum = valArr[4];
+                String description = valArr[7];
+                int xVal = Integer.parseInt(valArr[1]);
+                int yVal = Integer.parseInt(valArr[2]);
+                if (floorNum.equals(floor) && bldName.equals("Middlesex College")) {
+                    POIMarker poi1 = new POIMarker(description);
+                    poi1.setSize(poi1.getPreferredSize());
+                    poi1.setLocation(xVal, yVal - poi1.getHeight());
+                    mapPane.add(poi1);
+                }
+            }
+
+            mainFrame.add(mapPane);
+            JScrollPane scrollPane = new JScrollPane(mapPane);
+            coordinates(scrollPane);
+            mainFrame.add(scrollPane);
         } catch (Exception e) {
             System.out.println("Image not found.");
         }
@@ -257,10 +289,48 @@ public class Maps {
 
         try {
             MapPane mapPane = new MapPane(floor);
-            POIMarker poi = new POIMarker();
-            poi.setSize(poi.getPreferredSize());
-            poi.setLocation(700, 500 - poi.getHeight());
-            mapPane.add(poi);
+            // POIMarker poi = new POIMarker();
+            // poi.setSize(poi.getPreferredSize());
+            // poi.setLocation(700, 500 - poi.getHeight());
+            // mapPane.add(poi);
+
+            // loop for poi hashmaps
+            // 1: admin hash
+            for (int i = 0; i < getAdminPOIHashMap().size(); i++) {
+                Map<String, String[]> adminMap = getAdminPOIHashMap();
+                String intStr = Integer.toString(i);
+                String[] valArr = adminMap.get(intStr);
+                String bldName = valArr[3];
+                String floorNum = valArr[4];
+                String description = valArr[7];
+                int xVal = Integer.parseInt(valArr[1]);
+                int yVal = Integer.parseInt(valArr[2]);
+                if (floorNum.equals(floor) && bldName.equals("Western Science Center")) {
+                    POIMarker poi1 = new POIMarker(description);
+                    poi1.setSize(poi1.getPreferredSize());
+                    poi1.setLocation(xVal, yVal - poi1.getHeight());
+                    mapPane.add(poi1);
+                }
+            }
+
+            // 2: user hash
+            for (int i = 0; i < getUserPOIHashMap().size(); i++) {
+                Map<String, String[]> userMap = getUserPOIHashMap();
+                String intStr = Integer.toString(i);
+                String[] valArr = userMap.get(intStr);
+                String bldName = valArr[3];
+                String floorNum = valArr[4];
+                String description = valArr[7];
+                int xVal = Integer.parseInt(valArr[1]);
+                int yVal = Integer.parseInt(valArr[2]);
+                if (floorNum.equals(floor) && bldName.equals("Western Science Center")) {
+                    POIMarker poi1 = new POIMarker(description);
+                    poi1.setSize(poi1.getPreferredSize());
+                    poi1.setLocation(xVal, yVal - poi1.getHeight());
+                    mapPane.add(poi1);
+                }
+            }
+
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
             coordinates(scrollPane);
@@ -319,10 +389,48 @@ public class Maps {
 
         try {
             MapPane mapPane = new MapPane(floor);
-            POIMarker poi = new POIMarker();
-            poi.setSize(poi.getPreferredSize());
-            poi.setLocation(700, 500 - poi.getHeight());
-            mapPane.add(poi);
+            // POIMarker poi = new POIMarker();
+            // poi.setSize(poi.getPreferredSize());
+            // poi.setLocation(700, 500 - poi.getHeight());
+            // mapPane.add(poi);
+
+            // loop for poi hashmaps
+            // 1: admin hash
+            for (int i = 0; i < getAdminPOIHashMap().size(); i++) {
+                Map<String, String[]> adminMap = getAdminPOIHashMap();
+                String intStr = Integer.toString(i);
+                String[] valArr = adminMap.get(intStr);
+                String bldName = valArr[3];
+                String floorNum = valArr[4];
+                String description = valArr[7];
+                int xVal = Integer.parseInt(valArr[1]);
+                int yVal = Integer.parseInt(valArr[2]);
+                if (floorNum.equals(floor) && bldName.equals("Talbot College")) {
+                    POIMarker poi1 = new POIMarker(description);
+                    poi1.setSize(poi1.getPreferredSize());
+                    poi1.setLocation(xVal, yVal - poi1.getHeight());
+                    mapPane.add(poi1);
+                }
+            }
+
+            // 2: user hash
+            for (int i = 0; i < getUserPOIHashMap().size(); i++) {
+                Map<String, String[]> userMap = getUserPOIHashMap();
+                String intStr = Integer.toString(i);
+                String[] valArr = userMap.get(intStr);
+                String bldName = valArr[3];
+                String floorNum = valArr[4];
+                String description = valArr[7];
+                int xVal = Integer.parseInt(valArr[1]);
+                int yVal = Integer.parseInt(valArr[2]);
+                if (floorNum.equals(floor) && bldName.equals("Talbot College")) {
+                    POIMarker poi1 = new POIMarker(description);
+                    poi1.setSize(poi1.getPreferredSize());
+                    poi1.setLocation(xVal, yVal - poi1.getHeight());
+                    mapPane.add(poi1);
+                }
+            }
+
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
             coordinates(scrollPane);
