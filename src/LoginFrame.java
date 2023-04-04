@@ -13,14 +13,15 @@ import javax.swing.*;
 import org.json.JSONObject;
 
 public class LoginFrame extends JFrame {
+
+    public static String userNameStr;
     final private Font mainFont = new Font("Segoe print", Font.BOLD, 18); // Create font type, to be used for text in
                                                                           // project
     JTextField UsernameInput, PasswordInput; // Declare variables for username and password tex input
 
     public void initialize() {
-
         JFrame mainFrame = new JFrame();
-
+        userNameStr = " ";
         // Form Panel
         JPanel formPanel = new JPanel(); // Create new instance of JPanel class
         formPanel.setLayout(new GridBagLayout());
@@ -86,9 +87,11 @@ public class LoginFrame extends JFrame {
 
                     // Use the dictionary to work login
                     if (dictionary.get(username).equals(password)) {
+                        userNameStr = username;
                         Maps m = new Maps(); // if login is successful, proceed with the program
-                    } else
+                    } else {
                         System.out.println("login failed");
+                    }
 
                 } catch (IOException error) {
                     System.out.println("Error reading file: " + error.getMessage());
@@ -131,7 +134,8 @@ public class LoginFrame extends JFrame {
         logoIcon = new ImageIcon(logoImage);
         JLabel lbLogo = new JLabel(logoIcon); // Create new JLABEL object, sets its icon to LogoIcon object
         GridBagConstraints logoConstraints = new GridBagConstraints();
-        logoConstraints.anchor = GridBagConstraints.CENTER; // Specifies how image icon should be positioned within its cell
+        logoConstraints.anchor = GridBagConstraints.CENTER; // Specifies how image icon should be positioned within its
+                                                            // cell
         JPanel logoPanel = new JPanel();
         logoPanel.setLayout(new GridBagLayout());
         logoPanel.setBackground(new Color(79, 38, 130)); // Set panel background colour to Western University purple
@@ -145,6 +149,10 @@ public class LoginFrame extends JFrame {
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Exit application when frame is closed
         mainFrame.setLocationRelativeTo(null); // Center the window on the screen
         mainFrame.setVisible(true);
+    }
+
+    public String getUserStr() {
+        return userNameStr;
     }
 
     public static void main(String[] args) {

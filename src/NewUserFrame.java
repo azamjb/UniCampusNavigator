@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -82,6 +83,17 @@ public class NewUserFrame extends JFrame {
 
                     // Write updated data back to file
                     Files.write(Paths.get(filename), jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+
+                    // Create user specific json file for POIs
+                    JSONObject jsonObj = new JSONObject();
+                    String fileName = newUsername + ".json";
+                    try (FileWriter fileWriter = new FileWriter(fileName)) {
+                        fileWriter.write(jsonObj.toString());
+                        System.out.println("Successfully created empty JSON file: " + fileName);
+                    } catch (IOException error) {
+                        System.out.println("An error occurred while creating the JSON file: " + fileName);
+                        error.printStackTrace();
+                    }
                 } catch (IOException error) {
                     System.out.println("Error: " + error.getMessage());
                 }

@@ -1,6 +1,10 @@
 
 import java.awt.*;
 import javax.swing.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -8,35 +12,50 @@ import java.util.Map;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import javax.imageio.ImageIO;
 
 public class Maps extends JFrame {
 
+    // Json file name from username
+    LoginFrame temp;
+    String userName;
+
     // File names for all the floor
-    Map<String, String> mcDict = Map.of("Ground Floor", "images/mc1.png", "1st Floor", "images/mc1.png", "2nd Floor", "images/mc2.png", "3rd Floor", "images/mc3.png", "4th Floor", "images/mc4.png");
-    Map<String, String> wscDict = Map.of("Ground Floor", "images/wscgf.png", "1st Floor", "images/wsc1.png", "2nd Floor", "images/wsc2.png", "3rd Floor", "images/wsc3.png");
-    Map<String, String> tcDict = Map.of("1st Floor", "images/tc1.png", "2nd Floor", "images/tc2.png", "3rd Floor", "images/tc3.png", "4th Floor", "images/tc4.png");
+    Map<String, String> mcDict = Map.of("Ground Floor", "images/mc1.png", "1st Floor", "images/mc1.png", "2nd Floor",
+            "images/mc2.png", "3rd Floor", "images/mc3.png", "4th Floor", "images/mc4.png");
+    Map<String, String> wscDict = Map.of("Ground Floor", "images/wscgf.png", "1st Floor", "images/wsc1.png",
+            "2nd Floor", "images/wsc2.png", "3rd Floor", "images/wsc3.png");
+    Map<String, String> tcDict = Map.of("1st Floor", "images/tc1.png", "2nd Floor", "images/tc2.png", "3rd Floor",
+            "images/tc3.png", "4th Floor", "images/tc4.png");
     String currentBuilding = "";
 
-    
     // Constructor to prompt user for to select building choice
-    public Maps(){
+    public Maps() {
         buildingSelect();
+
+        // Json file name from username initialization
+        temp = new LoginFrame(); // create new login frame object to call the static username object
+        userName = temp.getUserStr();
     }
 
-    // Prompt the user to select between three buildings to navigate through floor plan
-    public void buildingSelect(){
+    // Prompt the user to select between three buildings to navigate through floor
+    // plan
+    public void buildingSelect() {
 
-        Font mainFont = new Font("Segoe print", Font.BOLD, 25); 
+        Font mainFont = new Font("Segoe print", Font.BOLD, 25);
         Dimension buttonSize = new Dimension(170, 75);
         JFrame mainFrame = new JFrame();
-        
+
         // Form Panel
         JPanel formPanel = new JPanel();
         formPanel.setLayout(new BorderLayout());
         formPanel.setBackground(new Color(79, 38, 130));
 
-        // Create the welcome label 
+        // Create the welcome label
         JLabel welcomeLabel = new JLabel("Welcome!");
         welcomeLabel.setFont(mainFont);
         welcomeLabel.setForeground(new Color(255, 255, 255));
@@ -66,8 +85,8 @@ public class Maps extends JFrame {
         try {
             campusImage = ImageIO.read(getClass().getResource("images/westerncampus.jpg"));
 
-            int newWidth = 490; 
-            int newHeight = 210; 
+            int newWidth = 490;
+            int newHeight = 210;
             Image scaledImage = campusImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
             ImageIcon imageIcon = new ImageIcon(scaledImage);
             JLabel campusLabel = new JLabel(imageIcon);
@@ -80,7 +99,6 @@ public class Maps extends JFrame {
         } catch (IOException e) {
             System.out.println("Image not found.");
         }
-        
 
         // Add the welcome and message panel to the north of the formPanel
         formPanel.add(topPanel, BorderLayout.NORTH);
@@ -120,8 +138,8 @@ public class Maps extends JFrame {
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            currentBuilding = "Talbot College";
-            displayTC("images/tc1.png");
+                currentBuilding = "Talbot College";
+                displayTC("images/tc1.png");
             }
         });
 
@@ -157,23 +175,23 @@ public class Maps extends JFrame {
 
     }
 
-    
-    // Display middlesex floor plan 
-    public void displayMC(String floor){
+    // Display middlesex floor plan
+    public void displayMC(String floor) {
 
-        Font mainFont = new Font("Segoe print", Font.PLAIN, 12); 
+        Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
 
-         
         JFrame mainFrame = new JFrame("Middlesex College");
-        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dispose current window instead of closing entire program
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dispose current window instead of closing entire
+                                                                     // program
 
         try {
             ImageIcon image = new ImageIcon(getClass().getResource(floor));
             JLabel display = new JLabel(image);
 
             // Allow for scrolling since floor image is too large
-            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
             mainFrame.getContentPane().add(scrollPane);
 
         } catch (Exception e) {
@@ -193,10 +211,10 @@ public class Maps extends JFrame {
             }
         });
 
-        
         // Set up drop down for selecting floors
         JComboBox<String> floorMenu = new JComboBox<>();
-        Map<String, Integer> floors = Map.of("Ground Floor", 0, "1st Floor", 1, "2nd Floor", 2, "3rd Floor", 3, "4th Floor", 4);
+        Map<String, Integer> floors = Map.of("Ground Floor", 0, "1st Floor", 1, "2nd Floor", 2, "3rd Floor", 3,
+                "4th Floor", 4);
         floorMenu.addItem("Ground Floor");
         floorMenu.addItem("1st Floor");
         floorMenu.addItem("2nd Floor");
@@ -211,7 +229,6 @@ public class Maps extends JFrame {
             }
         });
 
-        
         // Set up frame
         JPanel menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         menuPanel.add(Box.createHorizontalGlue()); // Add glue to push button to the left
@@ -223,20 +240,21 @@ public class Maps extends JFrame {
         mainFrame.setVisible(true);
     }
 
-    public void displayWSC(String floor){
-        Font mainFont = new Font("Segoe print", Font.PLAIN, 12); 
+    public void displayWSC(String floor) {
+        Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
 
-         
         JFrame mainFrame = new JFrame("Western Science Centre");
-        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dispose current window instead of closing entire program
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dispose current window instead of closing entire
+                                                                     // program
 
         try {
             ImageIcon image = new ImageIcon(getClass().getResource(floor));
             JLabel display = new JLabel(image);
 
             // Allow for scrolling since floor image is too large
-            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
             mainFrame.getContentPane().add(scrollPane);
 
         } catch (Exception e) {
@@ -256,7 +274,6 @@ public class Maps extends JFrame {
             }
         });
 
-        
         // Set up drop down for selecting floors
         JComboBox<String> floorMenu = new JComboBox<>();
         floorMenu.addItem("Ground Floor");
@@ -273,7 +290,6 @@ public class Maps extends JFrame {
             }
         });
 
-        
         // Set up frame
         JPanel menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         menuPanel.add(Box.createHorizontalGlue()); // Add glue to push button to the left
@@ -285,20 +301,21 @@ public class Maps extends JFrame {
         mainFrame.setVisible(true);
     }
 
-    public void displayTC(String floor){
-        Font mainFont = new Font("Segoe print", Font.PLAIN, 12); 
+    public void displayTC(String floor) {
+        Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
 
-         
         JFrame mainFrame = new JFrame("Talbot College");
-        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dispose current window instead of closing entire program
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dispose current window instead of closing entire
+                                                                     // program
 
         try {
             ImageIcon image = new ImageIcon(getClass().getResource(floor));
             JLabel display = new JLabel(image);
 
             // Allow for scrolling since floor image is too large
-            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
             mainFrame.getContentPane().add(scrollPane);
 
         } catch (Exception e) {
@@ -318,7 +335,6 @@ public class Maps extends JFrame {
             }
         });
 
-        
         // Set up drop down for selecting floors
         JComboBox<String> floorMenu = new JComboBox<>();
         floorMenu.addItem("1st Floor");
@@ -335,7 +351,6 @@ public class Maps extends JFrame {
             }
         });
 
-        
         // Set up frame
         JPanel menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         menuPanel.add(Box.createHorizontalGlue()); // Add glue to push button to the left
@@ -348,22 +363,74 @@ public class Maps extends JFrame {
     }
 
     // Changes floor of the building
-    public void changeFloor(String floor){
-        if (currentBuilding.equals("Middlesex College")){
+    public void changeFloor(String floor) {
+        if (currentBuilding.equals("Middlesex College")) {
             displayMC(floor);
-        }
-        else if (currentBuilding.equals("Western Science Centre")){
+        } else if (currentBuilding.equals("Western Science Centre")) {
             displayWSC(floor);
-        }
-        else{
+        } else {
             displayTC(floor);
         }
     }
 
-    public static void main(String[] args){
+    private void writePOI(String jpgName, String xyVal, String floorNum, String POIType, String description,
+            String roomNumString) {
+        // "jpg Name", "x.y", "building name", "floor num", "poi type/name",
+        // "description", "room #"
+        String filename = this.userName + ".json";
+        try {
+            // Read existing data from file
+            String jsonString = new String(Files.readAllBytes(Paths.get(filename)), StandardCharsets.UTF_8);
+            JSONObject jsonObject = new JSONObject(jsonString);
+
+            // Add new data to JSONObject
+            int keysCount = jsonObject.length();
+            String key = Integer.toString(keysCount);
+            JSONArray POIarr = new JSONArray();
+            POIarr.put(jpgName);
+            POIarr.put(xyVal);
+            POIarr.put(floorNum);
+            POIarr.put(POIType);
+            POIarr.put(description);
+            POIarr.put(roomNumString);
+
+            jsonObject.put(key, POIarr);
+
+            // Write updated data back to file
+            Files.write(Paths.get(filename), jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+        } catch (IOException error) {
+            System.out.println("Error: " + error.getMessage());
+        }
+    }
+
+    private Map<String, String[]> getPOIHashMap() {
+        // turning json into a dictionary
+        String filename = this.userName + ".json";
+        try {
+            // file contents into a byte array
+            byte[] bytes = Files.readAllBytes(Paths.get(filename));
+            // byte array to string with UTF-8 encoding
+            String jsonString = new String(bytes, "UTF-8");
+            // JSON string to Map with org.json library
+            JSONObject jsonObject = new JSONObject(jsonString);
+            Map<String, String[]> dictionary = new HashMap<>();
+            for (String key : jsonObject.keySet()) {
+                JSONArray jsonArray = jsonObject.getJSONArray(key);
+                String[] strArr = new String[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    strArr[i] = jsonArray.getString(i);
+                }
+                dictionary.put(key, strArr);
+            }
+            return dictionary;
+        } catch (IOException error) {
+            System.out.println("Error reading file: " + error.getMessage());
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
         Maps m = new Maps();
     }
 
-
-    
 }
