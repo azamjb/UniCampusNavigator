@@ -373,7 +373,8 @@ public class Maps extends JFrame {
         }
     }
 
-    private void writePOI(String jpgName, String xyVal, String floorNum, String POIType, String description,
+    private void writePOI(String jpgName, String xyVal, String floorNum, String POIType, String POIName,
+            String description,
             String roomNumString) {
         // "jpg Name", "x.y", "building name", "floor num", "poi type/name",
         // "description", "room #"
@@ -391,6 +392,7 @@ public class Maps extends JFrame {
             POIarr.put(xyVal);
             POIarr.put(floorNum);
             POIarr.put(POIType);
+            POIarr.put(POIName);
             POIarr.put(description);
             POIarr.put(roomNumString);
 
