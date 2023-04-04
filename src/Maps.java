@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -18,8 +17,7 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
-public class Maps extends JFrame {
-
+public class Maps {
     // Json file name from username
     LoginFrame temp;
     String userName;
@@ -186,15 +184,16 @@ public class Maps extends JFrame {
                                                                      // program
 
         try {
-            ImageIcon image = new ImageIcon(getClass().getResource(floor));
-            JLabel display = new JLabel(image);
-
-            // Allow for scrolling since floor image is too large
-            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            mainFrame.getContentPane().add(scrollPane);
-
-        } catch (Exception e) {
+            MapPane mapPane = new MapPane(floor);
+            POIMarker poi = new POIMarker();
+            poi.setSize(poi.getPreferredSize());
+            poi.setLocation(700, 500 - poi.getHeight());
+            mapPane.add(poi);
+            mainFrame.add(mapPane);
+            JScrollPane scrollPane = new JScrollPane(mapPane);
+            mainFrame.add(scrollPane);
+        } 
+        catch (Exception e) {
             System.out.println("Image not found.");
         }
 
@@ -249,15 +248,16 @@ public class Maps extends JFrame {
                                                                      // program
 
         try {
-            ImageIcon image = new ImageIcon(getClass().getResource(floor));
-            JLabel display = new JLabel(image);
-
-            // Allow for scrolling since floor image is too large
-            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            mainFrame.getContentPane().add(scrollPane);
-
-        } catch (Exception e) {
+            MapPane mapPane = new MapPane(floor);
+            POIMarker poi = new POIMarker();
+            poi.setSize(poi.getPreferredSize());
+            poi.setLocation(700, 500 - poi.getHeight());
+            mapPane.add(poi);
+            mainFrame.add(mapPane);
+            JScrollPane scrollPane = new JScrollPane(mapPane);
+            mainFrame.add(scrollPane);
+        } 
+        catch (Exception e) {
             System.out.println("Image not found.");
         }
 
@@ -310,15 +310,16 @@ public class Maps extends JFrame {
                                                                      // program
 
         try {
-            ImageIcon image = new ImageIcon(getClass().getResource(floor));
-            JLabel display = new JLabel(image);
-
-            // Allow for scrolling since floor image is too large
-            JScrollPane scrollPane = new JScrollPane(display, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            mainFrame.getContentPane().add(scrollPane);
-
-        } catch (Exception e) {
+            MapPane mapPane = new MapPane(floor);
+            POIMarker poi = new POIMarker();
+            poi.setSize(poi.getPreferredSize());
+            poi.setLocation(700, 500 - poi.getHeight());
+            mapPane.add(poi);
+            mainFrame.add(mapPane);
+            JScrollPane scrollPane = new JScrollPane(mapPane);
+            mainFrame.add(scrollPane);
+        } 
+        catch (Exception e) {
             System.out.println("Image not found.");
         }
 
