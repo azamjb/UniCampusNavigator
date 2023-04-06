@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -29,16 +28,14 @@ public class newUserPOI {
 
     JTextField buildingNameInput, floorNumInput, poiTypeInput, poiNameInput, descriptionInput, roomNumInput; // Declare
                                                                                                              // variables
-                                                                                                             // for
-    // username and password
-    // tex input
 
-    public void newUserPOI() {
+    public newUserPOI() {
     }
 
-    public void initialize(String XVal, String YVal) {
+    public void initialize(String XVal, String YVal, String jpgName) {
         setXVal(XVal);
         setYVal(YVal);
+        setJpgName(jpgName);
 
         // Json file name from username initialization
         LoginFrame temp = new LoginFrame(); // create new login frame object to call the static
@@ -171,20 +168,20 @@ public class newUserPOI {
                 String desc = descriptionInput.getText();
                 String roomNum = roomNumInput.getText();
 
-                setBuildingNAme(buildingName);
+                setBuildingName(buildingName);
                 setFloorNum(floorNum);
                 setPOItype(poiType);
                 setPOIName(poiName);
                 setDescription(desc);
                 setRoomNum(roomNum);
 
-                writePOI("mcgf.png", getXVal(), getYVal(), getBuildingNAme(), getFloorNum(), getPOItype(),
+                writePOI(getJpgName(), getXVal(), getYVal(), getBuildingName(), getFloorNum(), getPOItype(),
                         getPOIName(),
                         getDescription(),
                         getRoomNum());
 
-                mainFrame.dispose(); // When new user created, dispose current frame and return to login menu
-                Maps m = new Maps();
+                mainFrame.dispose(); // When new POI is created, dispose current frame and return to Maps menu
+                new Maps(getJpgName(), userName);
             }
         });
         c.gridx = 1;
@@ -215,7 +212,7 @@ public class newUserPOI {
 
         // Add all components to frame
         mainFrame.add(mainPanel);
-        mainFrame.setTitle("Login to the UWO Campus Map!");
+        mainFrame.setTitle("Enter the POI details!");
         mainFrame.setSize(800, 400); // Set dimensions for screen
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Exit application when frame is closed
         mainFrame.setLocationRelativeTo(null); // Center the window on the screen
@@ -223,15 +220,18 @@ public class newUserPOI {
 
     }
 
+    private void setJpgName(String JpgName) {
+        this.JpgName = JpgName;
+    }
     private void setXVal(String xVal) {
         this.xValStr = xVal;
     }
 
     private void setYVal(String yVal) {
-        this.xValStr = yVal;
+        this.yValStr = yVal;
     }
 
-    private void setBuildingNAme(String bldName) {
+    private void setBuildingName(String bldName) {
         this.buildingName = bldName;
     }
 
@@ -264,10 +264,10 @@ public class newUserPOI {
     }
 
     private String getYVal() {
-        return this.xValStr;
+        return this.yValStr;
     }
 
-    private String getBuildingNAme() {
+    private String getBuildingName() {
         return this.buildingName;
     }
 
@@ -309,7 +309,7 @@ public class newUserPOI {
             POIarr.put(getJpgName());
             POIarr.put(getXVal());
             POIarr.put(getYVal());
-            POIarr.put(getBuildingNAme());
+            POIarr.put(getBuildingName());
             POIarr.put(getFloorNum());
             POIarr.put(getPOItype());
             POIarr.put(getPOIName());
@@ -324,9 +324,4 @@ public class newUserPOI {
             System.out.println("Error: " + error.getMessage());
         }
     }
-
-    // public static void main(String[] args) {
-    // newUserPOI m = new newUserPOI();
-    // m.initialize("1", "2", "3");
-    // }
 }

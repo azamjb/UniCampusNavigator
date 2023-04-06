@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -88,7 +87,8 @@ public class LoginFrame extends JFrame {
                     // Use the dictionary to work login
                     if (dictionary.get(username).equals(password)) {
                         userNameStr = username;
-                        Maps m = new Maps(); // if login is successful, proceed with the program
+                        new Maps();
+                        mainFrame.dispose(); // if login is successful, proceed with the program
                     } else {
                         System.out.println("login failed");
                     }

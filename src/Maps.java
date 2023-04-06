@@ -12,18 +12,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
+
 public class Maps {
     // Json file name from username
     LoginFrame temp;
     String userName;
+    int POIcreated = 0;
 
     // File names for all the floor
     Map<String, String> mcDict = Map.of("Ground Floor", "images/mc1.png", "1st Floor", "images/mc1.png", "2nd Floor",
@@ -41,6 +41,20 @@ public class Maps {
         // Json file name from username initialization
         temp = new LoginFrame(); // create new login frame object to call the static username object
         userName = temp.getUserStr();
+    }
+
+    // skip building select (called after creating a User POI)
+    public Maps(String displayMap, String userName) {
+        this.userName = userName;
+        if (displayMap.charAt(0) == 'm') {
+            displayMC("images/" + displayMap);
+        }
+        else if (displayMap.charAt(0) == 'w') {
+            displayWSC("images/" + displayMap);
+        }
+        else {
+            displayTC("images/" + displayMap);
+        }
     }
 
     // Prompt the user to select between three buildings to navigate through floor
@@ -125,6 +139,7 @@ public class Maps {
                 // if Middlesex button clicked, display the map
                 currentBuilding = "Middlesex College";
                 displayMC("images/mcgf.png");
+                mainFrame.dispose();
             }
         });
         button2.addActionListener(new ActionListener() {
@@ -133,6 +148,7 @@ public class Maps {
                 // if Middlesex button clicked, display the map
                 currentBuilding = "Western Science Centre";
                 displayWSC("images/wscgf.png");
+                mainFrame.dispose();
             }
         });
         button3.addActionListener(new ActionListener() {
@@ -140,6 +156,7 @@ public class Maps {
             public void actionPerformed(ActionEvent e) {
                 currentBuilding = "Talbot College";
                 displayTC("images/tc1.png");
+                mainFrame.dispose();
             }
         });
 
@@ -196,8 +213,6 @@ public class Maps {
                 Map<String, String[]> adminMap = getAdminPOIHashMap();
                 String intStr = String.valueOf(i);
                 String[] valArr = adminMap.get(intStr);
-                String bldName = valArr[3];
-                String floorNum = valArr[4];
 
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
@@ -207,18 +222,61 @@ public class Maps {
                     String num = valArr[8];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
-                    POIMarker poi1 = new POIMarker(description, name, num);
-                    poi1.setSize(poi1.getPreferredSize());
-                    poi1.setLocation(xVal, yVal);
-                    mapPane.add(poi1);
+                    POIMarker poi = new POIMarker(description, name, num);
+                    poi.setSize(poi.getPreferredSize());
+                    poi.setLocation(xVal, yVal);
+                    mapPane.add(poi);
                 }
+            }
+
+            //add the user POI's
+            if (userName != "admin") {
+                for (int i = 0; i < getUserPOIHashMap().size(); i++) {
+                    Map<String, String[]> userMap = getUserPOIHashMap();
+                    String intStr = String.valueOf(i);
+                    String[] valArr = userMap.get(intStr);
+    
+                    if (!valArr[0].equals(floorName[1])) {
+                        continue;
+                    } 
+                    else {
+                        String name = valArr[6];
+                        String description = valArr[7];
+                        String num = valArr[8];
+                        int xVal = Integer.parseInt(valArr[1]);
+                        int yVal = Integer.parseInt(valArr[2]);
+                        POIMarker userPOI = new POIMarker(description, name, num);
+                        userPOI.setSize(userPOI.getPreferredSize());
+                        userPOI.setLocation(xVal, yVal);
+                        mapPane.add(userPOI);
+                    }
+                }   
             }
 
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
-            coordinates(scrollPane);
+            scrollPane.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int x = e.getX() + scrollPane.getHorizontalScrollBar().getValue();
+                    int y = e.getY() + scrollPane.getVerticalScrollBar().getValue();
+                    System.out.println("Clicked at (" + x + ", " + y + ")");
+                    int result = JOptionPane.showConfirmDialog(scrollPane, "Place a new POI here?", "Create a POI",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (result == JOptionPane.YES_OPTION) {
+                        String xVal = Integer.toString(x);
+                        String yVal = Integer.toString(y);
+                        newUserPOI m = new newUserPOI();
+                        m.initialize(xVal, yVal, floorName[1]);
+                        mainFrame.dispose();
+                    }
+                }
+            });
+    
             mainFrame.add(scrollPane);
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println("Image not found.");
         }
 
@@ -235,10 +293,8 @@ public class Maps {
             }
         });
 
-        // Set up drop down for selecting floors
+        // Set up drop down for selecting floorss
         JComboBox<String> floorMenu = new JComboBox<>();
-        Map<String, Integer> floors = Map.of("Ground Floor", 0, "1st Floor", 1, "2nd Floor", 2, "3rd Floor", 3,
-                "4th Floor", 4);
         floorMenu.addItem("Ground Floor");
         floorMenu.addItem("1st Floor");
         floorMenu.addItem("2nd Floor");
@@ -262,10 +318,9 @@ public class Maps {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Search search = new Search(POIList, floorName[1]);
+                new Search(POIList, floorName[1]);
             }
         });
-
         // Set up frame
         JPanel menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         menuPanel.add(Box.createHorizontalGlue()); // Add glue to push button to the left
@@ -297,8 +352,6 @@ public class Maps {
                 Map<String, String[]> adminMap = getAdminPOIHashMap();
                 String intStr = String.valueOf(i);
                 String[] valArr = adminMap.get(intStr);
-                String bldName = valArr[3];
-                String floorNum = valArr[4];
 
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
@@ -315,9 +368,51 @@ public class Maps {
                 }
             }
 
+            //add the user POI's
+            if (userName != "admin") {
+                for (int i = 0; i < getUserPOIHashMap().size(); i++) {
+                    Map<String, String[]> userMap = getUserPOIHashMap();
+                    String intStr = String.valueOf(i);
+                    String[] valArr = userMap.get(intStr);
+    
+                    if (!valArr[0].equals(floorName[1])) {
+                        continue;
+                    } 
+                    else {
+                        String name = valArr[6];
+                        String description = valArr[7];
+                        String num = valArr[8];
+                        int xVal = Integer.parseInt(valArr[1]);
+                        int yVal = Integer.parseInt(valArr[2]);
+                        POIMarker userPOI = new POIMarker(description, name, num);
+                        userPOI.setSize(userPOI.getPreferredSize());
+                        userPOI.setLocation(xVal, yVal);
+                        mapPane.add(userPOI);
+                    }
+                }   
+            }
+
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
-            coordinates(scrollPane);
+            scrollPane.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int x = e.getX() + scrollPane.getHorizontalScrollBar().getValue();
+                    int y = e.getY() + scrollPane.getVerticalScrollBar().getValue();
+                    System.out.println("Clicked at (" + x + ", " + y + ")");
+                    int result = JOptionPane.showConfirmDialog(scrollPane, "Place a new POI here?", "Create a POI",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (result == JOptionPane.YES_OPTION) {
+                        String xVal = Integer.toString(x);
+                        String yVal = Integer.toString(y);
+                        newUserPOI m = new newUserPOI();
+                        m.initialize(xVal, yVal, floorName[1]);
+                        mainFrame.dispose();
+                    }
+                }
+            });
+    
             mainFrame.add(scrollPane);
         } catch (Exception e) {
             System.out.println("Image not found.");
@@ -361,7 +456,7 @@ public class Maps {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Search search = new Search(POIList, floorName[1]);
+                new Search(POIList, floorName[1]);
             }
         });
 
@@ -396,8 +491,6 @@ public class Maps {
                 Map<String, String[]> adminMap = getAdminPOIHashMap();
                 String intStr = String.valueOf(i);
                 String[] valArr = adminMap.get(intStr);
-                String bldName = valArr[3];
-                String floorNum = valArr[4];
 
                 if (!valArr[0].equals(floorName[1])) {
                     continue;
@@ -414,9 +507,51 @@ public class Maps {
                 }
             }
 
+            //add the user POI's
+            if (userName != "admin") {
+                for (int i = 0; i < getUserPOIHashMap().size(); i++) {
+                    Map<String, String[]> userMap = getUserPOIHashMap();
+                    String intStr = String.valueOf(i);
+                    String[] valArr = userMap.get(intStr);
+    
+                    if (!valArr[0].equals(floorName[1])) {
+                        continue;
+                    } 
+                    else {
+                        String name = valArr[6];
+                        String description = valArr[7];
+                        String num = valArr[8];
+                        int xVal = Integer.parseInt(valArr[1]);
+                        int yVal = Integer.parseInt(valArr[2]);
+                        POIMarker userPOI = new POIMarker(description, name, num);
+                        userPOI.setSize(userPOI.getPreferredSize());
+                        userPOI.setLocation(xVal, yVal);
+                        mapPane.add(userPOI);
+                    }
+                }   
+            }
+
             mainFrame.add(mapPane);
             JScrollPane scrollPane = new JScrollPane(mapPane);
-            coordinates(scrollPane);
+            scrollPane.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int x = e.getX() + scrollPane.getHorizontalScrollBar().getValue();
+                    int y = e.getY() + scrollPane.getVerticalScrollBar().getValue();
+                    System.out.println("Clicked at (" + x + ", " + y + ")");
+                    int result = JOptionPane.showConfirmDialog(scrollPane, "Place a new POI here?", "Create a POI",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (result == JOptionPane.YES_OPTION) {
+                        String xVal = Integer.toString(x);
+                        String yVal = Integer.toString(y);
+                        newUserPOI m = new newUserPOI();
+                        m.initialize(xVal, yVal, floorName[1]);
+                        mainFrame.dispose();
+                    }
+                }
+            });
+    
             mainFrame.add(scrollPane);
         } catch (Exception e) {
             System.out.println("Image not found.");
@@ -459,7 +594,7 @@ public class Maps {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Search search = new Search(POIList, floorName[1]);
+                new Search(POIList, floorName[1]);
             }
         });
 
@@ -479,66 +614,34 @@ public class Maps {
     public void changeFloor(String floor) {
         if (currentBuilding.equals("Middlesex College")) {
             displayMC(floor);
-        } else if (currentBuilding.equals("Western Science Centre")) {
+        } 
+        else if (currentBuilding.equals("Western Science Centre")) {
             displayWSC(floor);
-        } else {
+        } 
+        else {
             displayTC(floor);
         }
     }
 
     // Get coordinates of where the POI's need to be placed
-    public void coordinates(JScrollPane pane) {
+    public void coordinates(JScrollPane pane, String floor) {
         pane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX() + pane.getHorizontalScrollBar().getValue();
                 int y = e.getY() + pane.getVerticalScrollBar().getValue();
                 System.out.println("Clicked at (" + x + ", " + y + ")");
-                int result = JOptionPane.showConfirmDialog(pane, "Place a new POI here?", "new poi",
+                int result = JOptionPane.showConfirmDialog(pane, "Place a new POI here?", "Create a POI",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     String xVal = Integer.toString(x);
                     String yVal = Integer.toString(y);
                     newUserPOI m = new newUserPOI();
-                    m.initialize(xVal, yVal);
+                    m.initialize(xVal, yVal, floor);
                 }
             }
         });
-    }
-
-    public void writePOI(String jpgName, String xVal, String yVal, String bldName, String floorNum, String POIType,
-            String POIName,
-            String description,
-            String roomNumString) {
-
-        String filename = this.userName + ".json";
-        try {
-            // Read existing data from file
-            String jsonString = new String(Files.readAllBytes(Paths.get(filename)), StandardCharsets.UTF_8);
-            JSONObject jsonObject = new JSONObject(jsonString);
-
-            // Add new data to JSONObject
-            int keysCount = jsonObject.length();
-            String key = Integer.toString(keysCount);
-            JSONArray POIarr = new JSONArray();
-            POIarr.put(jpgName);
-            POIarr.put(xVal);
-            POIarr.put(yVal);
-            POIarr.put(bldName);
-            POIarr.put(floorNum);
-            POIarr.put(POIType);
-            POIarr.put(POIName);
-            POIarr.put(description);
-            POIarr.put(roomNumString);
-
-            jsonObject.put(key, POIarr);
-
-            // Write updated data back to file
-            Files.write(Paths.get(filename), jsonObject.toString().getBytes(StandardCharsets.UTF_8));
-        } catch (IOException error) {
-            System.out.println("Error: " + error.getMessage());
-        }
     }
 
     private Map<String, String[]> getUserPOIHashMap() {
@@ -609,7 +712,7 @@ public class Maps {
             String[] val2Arr = userMap.get(intStr);
             // check to see if it is a duplicate before adding to the list
             if (i < listofPOIs.size()) {
-                if (!listofPOIs.get(i)[3].equals(val2Arr[3]) && listofPOIs.get(i)[7].equals(val2Arr[7])) {
+                if (!(listofPOIs.get(i)[3].equals(val2Arr[3]) && listofPOIs.get(i)[7].equals(val2Arr[7]))) {
                     listofPOIs.add(val2Arr);   
                 }
                 else {
@@ -624,7 +727,7 @@ public class Maps {
     }
 
     public static void main(String[] args) {
-        Maps m = new Maps();
+        new Maps();
     }
 
 }
