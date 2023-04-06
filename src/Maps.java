@@ -257,7 +257,7 @@ public class Maps {
             }
 
             //add the user POI's
-            if (userName != "admin") {
+            if (!userName.equals("admin")) {
                 for (int i = 0; i < getUserPOIHashMap().size(); i++) {
                     Map<String, String[]> userMap = getUserPOIHashMap();
                     String intStr = String.valueOf(i);
@@ -352,7 +352,7 @@ public class Maps {
             }
         });
 
-        ArrayList<String[]> POIList = listofPOIs();
+        ArrayList<String[]> POIList = listofPOIs(userName);
 
         // Create a new button for opening the Search panel
         JButton searchButton = new JButton("Open Search Menu");
@@ -416,7 +416,7 @@ public class Maps {
             }
 
             //add the user POI's
-            if (userName != "admin") {
+            if (!userName.equals("admin")) {
                 for (int i = 0; i < getUserPOIHashMap().size(); i++) {
                     Map<String, String[]> userMap = getUserPOIHashMap();
                     String intStr = String.valueOf(i);
@@ -509,7 +509,7 @@ public class Maps {
             }
         });
 
-        ArrayList<String[]> POIList = listofPOIs();
+        ArrayList<String[]> POIList = listofPOIs(userName);
 
         // Create a new button for opening the Search panel
         JButton searchButton = new JButton("Open Search Menu");
@@ -574,7 +574,7 @@ public class Maps {
             }
 
             //add the user POI's
-            if (userName != "admin") {
+            if (!userName.equals("admin")) {
                 for (int i = 0; i < getUserPOIHashMap().size(); i++) {
                     Map<String, String[]> userMap = getUserPOIHashMap();
                     String intStr = String.valueOf(i);
@@ -667,7 +667,7 @@ public class Maps {
                 mainFrame.dispose();
             }
         });
-        ArrayList<String[]> POIList = listofPOIs();
+        ArrayList<String[]> POIList = listofPOIs(userName);
 
         // Create a new button for opening the Search panel
         JButton searchButton = new JButton("Open Search Menu");
@@ -760,7 +760,7 @@ public class Maps {
     }
 
     // creates an array list of all POIs on all Maps, does not allow duplicates
-    public ArrayList<String[]> listofPOIs() {
+    public ArrayList<String[]> listofPOIs(String userName) {
         ArrayList<String[]> listofPOIs = new ArrayList<>();
 
         for (int i = 1; i < getAdminPOIHashMap().size(); i++) {
@@ -769,21 +769,23 @@ public class Maps {
             String[] valArr = adminMap.get(intStr);
             listofPOIs.add(valArr);
         }
-        for (int i = 1; i < getUserPOIHashMap().size(); i++) {
-            Map<String, String[]> userMap = getUserPOIHashMap();
-            String intStr = String.valueOf(i);
-            String[] val2Arr = userMap.get(intStr);
-            // check to see if it is a duplicate before adding to the list
-            if (i < listofPOIs.size()) {
-                if (!(listofPOIs.get(i)[3].equals(val2Arr[3]) && listofPOIs.get(i)[7].equals(val2Arr[7]))) {
-                    listofPOIs.add(val2Arr);   
+        if (!userName.equals("admin")) {
+            for (int i = 1; i < getUserPOIHashMap().size(); i++) {
+                Map<String, String[]> userMap = getUserPOIHashMap();
+                String intStr = String.valueOf(i);
+                String[] val2Arr = userMap.get(intStr);
+                // check to see if it is a duplicate before adding to the list
+                if (i < listofPOIs.size()) {
+                    if (!(listofPOIs.get(i)[3].equals(val2Arr[3]) && listofPOIs.get(i)[7].equals(val2Arr[7]))) {
+                        listofPOIs.add(val2Arr);   
+                    }
+                    else {
+                        continue;
+                    }
                 }
                 else {
                     continue;
                 }
-            }
-            else {
-                continue;
             }
         }
         return listofPOIs;
