@@ -21,7 +21,7 @@ public class Layers {
         JFrame layerFrame = new JFrame();
         layerFrame.setTitle("Change Layers");
         layerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        layerFrame.setSize(new Dimension(250, 100));
+        layerFrame.setSize(new Dimension(250, 125));
         layerFrame.setLocationRelativeTo(null); // Center popup frame on screen
         
         JPanel layerPanel = new JPanel();
