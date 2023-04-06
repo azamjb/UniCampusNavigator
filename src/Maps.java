@@ -325,7 +325,7 @@ public class Maps {
         // Set up changes layers button to allow user to display different pois
         JButton changeLayersBtn = new JButton("Change Layers");
         changeLayersBtn.setFont(mainFont);
-        changeLayersBtn.setPreferredSize(new Dimension(115, 25));
+        changeLayersBtn.setPreferredSize(new Dimension(150, 30));
         changeLayersBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
         changeLayersBtn.addActionListener(new ActionListener() {
             @Override
@@ -483,7 +483,7 @@ public class Maps {
         // Set up changes layers button to allow user to display different pois
         JButton changeLayersBtn = new JButton("Change Layers");
         changeLayersBtn.setFont(mainFont);
-        changeLayersBtn.setPreferredSize(new Dimension(115, 25));
+        changeLayersBtn.setPreferredSize(new Dimension(150, 30));
         changeLayersBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
         changeLayersBtn.addActionListener(new ActionListener() {
             @Override
@@ -642,7 +642,7 @@ public class Maps {
         // Set up changes layers button to allow user to display different pois
         JButton changeLayersBtn = new JButton("Change Layers");
         changeLayersBtn.setFont(mainFont);
-        changeLayersBtn.setPreferredSize(new Dimension(115, 25));
+        changeLayersBtn.setPreferredSize(new Dimension(150, 30));
         changeLayersBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
         changeLayersBtn.addActionListener(new ActionListener() {
             @Override
