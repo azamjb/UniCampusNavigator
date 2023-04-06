@@ -22,9 +22,11 @@ public class Search extends JFrame {
     DefaultListModel<String> defaultListModel;
     JList<String> myJList = new JList<>();
     JTextField searchField = new JTextField();
+    String userName;
 
-    public Search(ArrayList<String[]> POIs, String floor) {
+    public Search(ArrayList<String[]> POIs, String floor, String userName) {
         listPOIs = POIs;
+        this.userName = userName;
         searchFilter("", floor);
         // Create a new JFrame for the search panel which will contain the textField and List of POIs the User is searching for.
         JFrame searchFrame = new JFrame("Search for a POI");
@@ -48,8 +50,14 @@ public class Search extends JFrame {
         searchFrame.getContentPane().add(textArea, BorderLayout.NORTH);
         searchFrame.add(myJList);
 
-        // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
+        ArrayList<String[]> floorPOIs = new ArrayList<>();
+        for (int i = 0; i < listPOIs.size(); i++) {
+            if (listPOIs.get(i)[0].equals(floor)) {
+                floorPOIs.add(listPOIs.get(i));
+            }
+        }
 
+        // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
         // Handle users clicking on a POI in the list
         myJList.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
@@ -66,16 +74,24 @@ public class Search extends JFrame {
                         
                         // If they select yes, warp to POI
                         if (q == JOptionPane.YES_OPTION) {
-                            
+                            searchFrame.dispose();
+                            String floor = floorPOIs.get(poiIndex)[0];
+                            int xVal = Integer.valueOf(floorPOIs.get(poiIndex)[1]);
+                            int yVal = Integer.valueOf(floorPOIs.get(poiIndex)[2]);
+                            new Maps(floor, userName, xVal, yVal);
+                        }
+                        else {
+                            searchFrame.dispose();
+                            new Maps(floor, userName);
                         }
                     }
-                
-                } 
-            }
+                }
+            } 
         });
     }
 
     public void searchFilter(String query, String floor) {
+        
         DefaultListModel<String> filteredList = new DefaultListModel<>();
         
         listPOIs.stream().forEach((POI) -> {

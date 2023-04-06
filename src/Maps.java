@@ -24,6 +24,8 @@ public class Maps {
     LoginFrame temp;
     String userName;
     int POIcreated = 0;
+    ArrayList<POIMarker> poiObjectList = new ArrayList<>();
+    JScrollPane scrollPane;
 
     // File names for all the floor
     Map<String, String> mcDict = Map.of("Ground Floor", "images/mc1.png", "1st Floor", "images/mc1.png", "2nd Floor",
@@ -54,6 +56,29 @@ public class Maps {
         }
         else {
             displayTC("images/" + displayMap);
+        }
+    }
+
+    // skip building select and warp to POI (called after searching and warping to POI)
+    public Maps(String displayMap, String userName, int xVal, int yVal) {
+        this.userName = userName;
+        if (displayMap.charAt(0) == 'm') {
+            displayMC("images/" + displayMap);
+            scrollPane.getHorizontalScrollBar().setValue(xVal - 650);
+            scrollPane.getVerticalScrollBar().setValue(yVal - 300);
+            scrollPane.requestFocus();
+        }
+        else if (displayMap.charAt(0) == 'w') {
+            displayWSC("images/" + displayMap);
+            scrollPane.getHorizontalScrollBar().setValue(xVal - 650);
+            scrollPane.getVerticalScrollBar().setValue(yVal - 300);
+            scrollPane.requestFocus();
+        }
+        else {
+            displayTC("images/" + displayMap);
+            scrollPane.getHorizontalScrollBar().setValue(xVal - 650);
+            scrollPane.getVerticalScrollBar().setValue(yVal - 300);
+            scrollPane.requestFocus();
         }
     }
 
@@ -225,6 +250,8 @@ public class Maps {
                     POIMarker poi = new POIMarker(description, name, num);
                     poi.setSize(poi.getPreferredSize());
                     poi.setLocation(xVal, yVal);
+                    poi.setType(valArr[5]);
+                    poiObjectList.add(poi);
                     mapPane.add(poi);
                 }
             }
@@ -248,13 +275,15 @@ public class Maps {
                         POIMarker userPOI = new POIMarker(description, name, num);
                         userPOI.setSize(userPOI.getPreferredSize());
                         userPOI.setLocation(xVal, yVal);
+                        userPOI.setType(valArr[5]);
+                        poiObjectList.add(userPOI);
                         mapPane.add(userPOI);
                     }
                 }   
             }
 
             mainFrame.add(mapPane);
-            JScrollPane scrollPane = new JScrollPane(mapPane);
+            scrollPane = new JScrollPane(mapPane);
             scrollPane.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -293,6 +322,20 @@ public class Maps {
             }
         });
 
+        // Set up changes layers button to allow user to display different pois
+        JButton changeLayersBtn = new JButton("Change Layers");
+        changeLayersBtn.setFont(mainFont);
+        changeLayersBtn.setPreferredSize(new Dimension(115, 25));
+        changeLayersBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        changeLayersBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Layers l = new Layers(poiObjectList);
+                l.changeLayer();
+            }
+        });
+
+
         // Set up drop down for selecting floorss
         JComboBox<String> floorMenu = new JComboBox<>();
         floorMenu.addItem("Ground Floor");
@@ -318,7 +361,8 @@ public class Maps {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Search(POIList, floorName[1]);
+                new Search(POIList, floorName[1], userName);
+                mainFrame.dispose();
             }
         });
         // Set up frame
@@ -327,6 +371,7 @@ public class Maps {
         menuPanel.add(backButton);
         menuPanel.add(floorMenu);
         menuPanel.add(searchButton);
+        menuPanel.add(changeLayersBtn);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -361,10 +406,12 @@ public class Maps {
                     String num = valArr[8];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
-                    POIMarker poi1 = new POIMarker(description, name, num);
-                    poi1.setSize(poi1.getPreferredSize());
-                    poi1.setLocation(xVal, yVal);
-                    mapPane.add(poi1);
+                    POIMarker poi = new POIMarker(description, name, num);
+                    poi.setSize(poi.getPreferredSize());
+                    poi.setLocation(xVal, yVal);
+                    poi.setType(valArr[5]);
+                    poiObjectList.add(poi);
+                    mapPane.add(poi);
                 }
             }
 
@@ -387,13 +434,15 @@ public class Maps {
                         POIMarker userPOI = new POIMarker(description, name, num);
                         userPOI.setSize(userPOI.getPreferredSize());
                         userPOI.setLocation(xVal, yVal);
+                        userPOI.setType(valArr[5]);
+                        poiObjectList.add(userPOI);
                         mapPane.add(userPOI);
                     }
                 }   
             }
 
             mainFrame.add(mapPane);
-            JScrollPane scrollPane = new JScrollPane(mapPane);
+            scrollPane = new JScrollPane(mapPane);
             scrollPane.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -431,6 +480,19 @@ public class Maps {
             }
         });
 
+        // Set up changes layers button to allow user to display different pois
+        JButton changeLayersBtn = new JButton("Change Layers");
+        changeLayersBtn.setFont(mainFont);
+        changeLayersBtn.setPreferredSize(new Dimension(115, 25));
+        changeLayersBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        changeLayersBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Layers l = new Layers(poiObjectList);
+                l.changeLayer();
+            }
+        });
+
         // Set up drop down for selecting floors
         JComboBox<String> floorMenu = new JComboBox<>();
         floorMenu.addItem("Ground Floor");
@@ -456,7 +518,8 @@ public class Maps {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Search(POIList, floorName[1]);
+                new Search(POIList, floorName[1], userName);
+                mainFrame.dispose();
             }
         });
 
@@ -466,6 +529,7 @@ public class Maps {
         menuPanel.add(backButton);
         menuPanel.add(floorMenu);
         menuPanel.add(searchButton);
+        menuPanel.add(changeLayersBtn);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -500,10 +564,12 @@ public class Maps {
                     String num = valArr[8];
                     int xVal = Integer.parseInt(valArr[1]);
                     int yVal = Integer.parseInt(valArr[2]);
-                    POIMarker poi1 = new POIMarker(description, name, num);
-                    poi1.setSize(poi1.getPreferredSize());
-                    poi1.setLocation(xVal, yVal);
-                    mapPane.add(poi1);
+                    POIMarker poi = new POIMarker(description, name, num);
+                    poi.setSize(poi.getPreferredSize());
+                    poi.setLocation(xVal, yVal);
+                    poi.setType(valArr[5]);
+                    poiObjectList.add(poi);
+                    mapPane.add(poi);
                 }
             }
 
@@ -526,13 +592,15 @@ public class Maps {
                         POIMarker userPOI = new POIMarker(description, name, num);
                         userPOI.setSize(userPOI.getPreferredSize());
                         userPOI.setLocation(xVal, yVal);
+                        userPOI.setType(valArr[5]);
+                        poiObjectList.add(userPOI);
                         mapPane.add(userPOI);
                     }
                 }   
             }
 
             mainFrame.add(mapPane);
-            JScrollPane scrollPane = new JScrollPane(mapPane);
+            scrollPane = new JScrollPane(mapPane);
             scrollPane.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -553,7 +621,8 @@ public class Maps {
             });
     
             mainFrame.add(scrollPane);
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println("Image not found.");
         }
 
@@ -567,6 +636,19 @@ public class Maps {
             public void actionPerformed(ActionEvent e) {
                 mainFrame.dispose();
                 buildingSelect(); // Allow user to select a different building
+            }
+        });
+
+        // Set up changes layers button to allow user to display different pois
+        JButton changeLayersBtn = new JButton("Change Layers");
+        changeLayersBtn.setFont(mainFont);
+        changeLayersBtn.setPreferredSize(new Dimension(115, 25));
+        changeLayersBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        changeLayersBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Layers l = new Layers(poiObjectList);
+                l.changeLayer();
             }
         });
 
@@ -594,7 +676,8 @@ public class Maps {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Search(POIList, floorName[1]);
+                new Search(POIList, floorName[1], userName);
+                mainFrame.dispose();
             }
         });
 
@@ -604,6 +687,7 @@ public class Maps {
         menuPanel.add(backButton);
         menuPanel.add(floorMenu);
         menuPanel.add(searchButton);
+        menuPanel.add(changeLayersBtn);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -621,27 +705,6 @@ public class Maps {
         else {
             displayTC(floor);
         }
-    }
-
-    // Get coordinates of where the POI's need to be placed
-    public void coordinates(JScrollPane pane, String floor) {
-        pane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int x = e.getX() + pane.getHorizontalScrollBar().getValue();
-                int y = e.getY() + pane.getVerticalScrollBar().getValue();
-                System.out.println("Clicked at (" + x + ", " + y + ")");
-                int result = JOptionPane.showConfirmDialog(pane, "Place a new POI here?", "Create a POI",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
-                if (result == JOptionPane.YES_OPTION) {
-                    String xVal = Integer.toString(x);
-                    String yVal = Integer.toString(y);
-                    newUserPOI m = new newUserPOI();
-                    m.initialize(xVal, yVal, floor);
-                }
-            }
-        });
     }
 
     private Map<String, String[]> getUserPOIHashMap() {
@@ -725,6 +788,15 @@ public class Maps {
         }
         return listofPOIs;
     }
+
+    // public void navigate(String floor, String xVal, String yVal, MapPane mapPane) {
+    //     int xScrollVal = Integer.valueOf(xVal);
+    //     int yScrollVal = Integer.valueOf(yVal);
+    //     JScrollPane pane = new JScrollPane(mapPane);
+    //     pane.getHorizontalScrollBar().setValue(xScrollVal);
+    //     pane.getVerticalScrollBar().setValue(yScrollVal);
+    //     pane.requestFocus();
+    // }
 
     public static void main(String[] args) {
         new Maps();
