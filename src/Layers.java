@@ -1,3 +1,10 @@
+/**
+ * @author Shadi Seaidoun
+ * Functionality for different layers of POI visibility
+ * Hides and displays certain POIs based on user selection
+ */
+
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +25,9 @@ public class Layers {
     }
 
     public void changeLayer() {
+        /**
+         Toggles layers to show based on user input
+        */
         JFrame layerFrame = new JFrame();
         layerFrame.setTitle("Change Layers");
         layerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

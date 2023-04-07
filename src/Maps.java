@@ -1,3 +1,9 @@
+/**
+ * @author Shadi Seaidoun
+ * Displays maps of the buildings, with lots of features
+ * Includes building selection screen, which then loads map
+ * Options to change floors, panel on top of screen providing many features
+ */
 import java.awt.*;
 import javax.swing.*;
 
@@ -12,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -82,9 +89,12 @@ public class Maps {
         }
     }
 
-    // Prompt the user to select between three buildings to navigate through floor
+   
     // plan
     public void buildingSelect() {
+        /**
+         * Prompt the user to select between three buildings to navigate through floor
+         */
         Font mainFont = new Font("Segoe print", Font.BOLD, 25);
         Dimension buttonSize = new Dimension(170, 75);
         JFrame mainFrame = new JFrame();
@@ -217,8 +227,10 @@ public class Maps {
 
     }
 
-    // Display middlesex floor plan
     public void displayMC(String floor) {
+        /**
+         * Display middlesex College floor plan
+         */
 
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
@@ -251,6 +263,7 @@ public class Maps {
                     poi.setSize(poi.getPreferredSize());
                     poi.setLocation(xVal, yVal);
                     poi.setType(valArr[5]);
+                    poi.setUserType(userName);
                     poiObjectList.add(poi);
                     mapPane.add(poi);
                 }
@@ -276,6 +289,7 @@ public class Maps {
                         userPOI.setSize(userPOI.getPreferredSize());
                         userPOI.setLocation(xVal, yVal);
                         userPOI.setType(valArr[5]);
+                        userPOI.setUserType(userName);
                         poiObjectList.add(userPOI);
                         mapPane.add(userPOI);
                     }
@@ -335,6 +349,58 @@ public class Maps {
             }
         });
 
+        // Button to display the about page
+        JButton aboutBtn = new JButton("About");
+        aboutBtn.setFont(mainFont);
+        aboutBtn.setPreferredSize(new Dimension(150, 30));
+        aboutBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        aboutBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AboutScreen as = new AboutScreen();
+            }
+        });
+
+        // Button to display the help pdf file
+        JButton helpBtn = new JButton("Help");
+        helpBtn.setFont(mainFont);
+        helpBtn.setPreferredSize(new Dimension(150, 30));
+        helpBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        helpBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // File path of the PDF file
+                String filePath = "officialhelpguide.pdf";
+                
+                // Open the PDF file with the default PDF viewer
+                try {
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        // On Windows
+                        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/C", filePath);
+                            processBuilder.start();
+                        }
+                        // On macOS
+                        else if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("open", filePath);
+                            processBuilder.start();
+                        }
+                        // On Linux
+                        else if (System.getProperty("os.name").toLowerCase().contains("nix") ||
+                                System.getProperty("os.name").toLowerCase().contains("nux")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("xdg-open", filePath);
+                            processBuilder.start();
+                        }
+                    } else {
+                        throw new IOException("File not found: " + filePath);
+                    }
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(mainFrame, "Failed to open PDF file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
 
         // Set up drop down for selecting floorss
         JComboBox<String> floorMenu = new JComboBox<>();
@@ -348,6 +414,7 @@ public class Maps {
             public void actionPerformed(ActionEvent e) {
                 String selectedFloor = (String) floorMenu.getSelectedItem();
                 changeFloor(mcDict.get(selectedFloor));
+                floorMenu.setSelectedItem(floorMenu.getSelectedItem());
                 mainFrame.dispose();
             }
         });
@@ -372,6 +439,8 @@ public class Maps {
         menuPanel.add(floorMenu);
         menuPanel.add(searchButton);
         menuPanel.add(changeLayersBtn);
+        menuPanel.add(aboutBtn);
+        menuPanel.add(helpBtn);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -379,6 +448,10 @@ public class Maps {
     }
 
     public void displayWSC(String floor) {
+        /**
+         * Display Western Science Center floor plan
+         */
+
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
 
@@ -410,6 +483,7 @@ public class Maps {
                     poi.setSize(poi.getPreferredSize());
                     poi.setLocation(xVal, yVal);
                     poi.setType(valArr[5]);
+                    poi.setUserType(userName);
                     poiObjectList.add(poi);
                     mapPane.add(poi);
                 }
@@ -435,6 +509,7 @@ public class Maps {
                         userPOI.setSize(userPOI.getPreferredSize());
                         userPOI.setLocation(xVal, yVal);
                         userPOI.setType(valArr[5]);
+                        userPOI.setUserType(userName);
                         poiObjectList.add(userPOI);
                         mapPane.add(userPOI);
                     }
@@ -493,6 +568,58 @@ public class Maps {
             }
         });
 
+        // Set up changes layers button to allow user to display different pois
+        JButton aboutBtn = new JButton("About");
+        aboutBtn.setFont(mainFont);
+        aboutBtn.setPreferredSize(new Dimension(150, 30));
+        aboutBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        aboutBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AboutScreen as = new AboutScreen();
+            }
+        });
+
+        // Button to display the help pdf file
+        JButton helpBtn = new JButton("Help");
+        helpBtn.setFont(mainFont);
+        helpBtn.setPreferredSize(new Dimension(150, 30));
+        helpBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        helpBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // File path of the PDF file
+                String filePath = "officialhelpguide.pdf";
+                
+                // Open the PDF file with the default PDF viewer
+                try {
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        // On Windows
+                        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/C", filePath);
+                            processBuilder.start();
+                        }
+                        // On macOS
+                        else if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("open", filePath);
+                            processBuilder.start();
+                        }
+                        // On Linux
+                        else if (System.getProperty("os.name").toLowerCase().contains("nix") ||
+                                System.getProperty("os.name").toLowerCase().contains("nux")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("xdg-open", filePath);
+                            processBuilder.start();
+                        }
+                    } else {
+                        throw new IOException("File not found: " + filePath);
+                    }
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(mainFrame, "Failed to open PDF file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         // Set up drop down for selecting floors
         JComboBox<String> floorMenu = new JComboBox<>();
         floorMenu.addItem("Ground Floor");
@@ -530,6 +657,8 @@ public class Maps {
         menuPanel.add(floorMenu);
         menuPanel.add(searchButton);
         menuPanel.add(changeLayersBtn);
+        menuPanel.add(aboutBtn);
+        menuPanel.add(helpBtn);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -537,6 +666,10 @@ public class Maps {
     }
 
     public void displayTC(String floor) {
+        /**
+         * Display middlesex College floor plan
+         */
+
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
 
@@ -568,6 +701,7 @@ public class Maps {
                     poi.setSize(poi.getPreferredSize());
                     poi.setLocation(xVal, yVal);
                     poi.setType(valArr[5]);
+                    poi.setUserType(userName);
                     poiObjectList.add(poi);
                     mapPane.add(poi);
                 }
@@ -593,6 +727,7 @@ public class Maps {
                         userPOI.setSize(userPOI.getPreferredSize());
                         userPOI.setLocation(xVal, yVal);
                         userPOI.setType(valArr[5]);
+                        userPOI.setUserType(userName);
                         poiObjectList.add(userPOI);
                         mapPane.add(userPOI);
                     }
@@ -652,6 +787,58 @@ public class Maps {
             }
         });
 
+        // Set up changes layers button to allow user to display different pois
+        JButton aboutBtn = new JButton("About");
+        aboutBtn.setFont(mainFont);
+        aboutBtn.setPreferredSize(new Dimension(150, 30));
+        aboutBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        aboutBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AboutScreen as = new AboutScreen();
+            }
+        });
+
+        // Button to display the help pdf file
+        JButton helpBtn = new JButton("Help");
+        helpBtn.setFont(mainFont);
+        helpBtn.setPreferredSize(new Dimension(150, 30));
+        helpBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        helpBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // File path of the PDF file
+                String filePath = "officialhelpguide.pdf";
+                
+                // Open the PDF file with the default PDF viewer
+                try {
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        // On Windows
+                        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/C", filePath);
+                            processBuilder.start();
+                        }
+                        // On macOS
+                        else if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("open", filePath);
+                            processBuilder.start();
+                        }
+                        // On Linux
+                        else if (System.getProperty("os.name").toLowerCase().contains("nix") ||
+                                System.getProperty("os.name").toLowerCase().contains("nux")) {
+                            ProcessBuilder processBuilder = new ProcessBuilder("xdg-open", filePath);
+                            processBuilder.start();
+                        }
+                    } else {
+                        throw new IOException("File not found: " + filePath);
+                    }
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(mainFrame, "Failed to open PDF file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         // Set up drop down for selecting floors
         JComboBox<String> floorMenu = new JComboBox<>();
         floorMenu.addItem("1st Floor");
@@ -688,6 +875,8 @@ public class Maps {
         menuPanel.add(floorMenu);
         menuPanel.add(searchButton);
         menuPanel.add(changeLayersBtn);
+        menuPanel.add(aboutBtn);
+        menuPanel.add(helpBtn);
         mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
@@ -708,7 +897,9 @@ public class Maps {
     }
 
     private Map<String, String[]> getUserPOIHashMap() {
-        // turning json into a dictionary
+        /**
+         * turning json into a dictionary
+         */
         String filename = this.userName + ".json";
         try {
             // file contents into a byte array
@@ -734,7 +925,9 @@ public class Maps {
     }
 
     private Map<String, String[]> getAdminPOIHashMap() {
-        // turning json into a dictionary
+        /**
+         * turning json into a dictionary
+         */
         String filename = "admin.json";
         try {
             // file contents into a byte array
@@ -759,8 +952,11 @@ public class Maps {
         return null;
     }
 
-    // creates an array list of all POIs on all Maps, does not allow duplicates
+    
     public ArrayList<String[]> listofPOIs(String userName) {
+        /**
+         * creates an array list of all POIs on all Maps, does not allow duplicates
+         */
         ArrayList<String[]> listofPOIs = new ArrayList<>();
 
         for (int i = 1; i < getAdminPOIHashMap().size(); i++) {

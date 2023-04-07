@@ -1,3 +1,11 @@
+/**
+ * @author Azam Jawad Butt
+ * GUI for initial Login Screen
+ * Includes options to login, or create new account
+ * Once logged in, will lead to main page
+ */
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -90,7 +98,7 @@ public class LoginFrame extends JFrame {
                         new Maps();
                         mainFrame.dispose(); // if login is successful, proceed with the program
                     } else {
-                        System.out.println("login failed");
+                        JOptionPane.showMessageDialog(null, "Incorrect password", "Login Failed", JOptionPane.ERROR_MESSAGE);
                     }
 
                 } catch (IOException error) {
@@ -152,6 +160,9 @@ public class LoginFrame extends JFrame {
     }
 
     public String getUserStr() {
+        /**
+        * Getter, returns username 
+        */
         return userNameStr;
     }
 

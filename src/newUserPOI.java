@@ -1,3 +1,11 @@
+/**
+ * @author Nathan Michael Voss
+ * GUI for new POI creation
+ * provides option for user to create a new POI
+ */
+
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -220,6 +228,9 @@ public class newUserPOI {
 
     }
 
+    /**
+     * private getters and setters below
+     */
     private void setJpgName(String JpgName) {
         this.JpgName = JpgName;
     }
@@ -295,6 +306,10 @@ public class newUserPOI {
             String POIName,
             String description,
             String roomNumString) {
+                /*
+                 * Creates new POI based on all @params inputted by user
+                 */
+
 
         String filename = this.userName + ".json";
         try {

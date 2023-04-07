@@ -1,3 +1,10 @@
+/**
+ * @author Nathan Michael Voss
+ * GUI for new user frame
+ * provides option to create a new user
+ */
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,3 +1,9 @@
+/**
+ * @author Nathan Michael Voss
+ * Provides functionality for searching POI's
+ * Button on main page allows users to search for a poi on the given map
+ * will then list all pois of that category, take them to the one they want
+ */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,10 +35,12 @@ public class Search extends JFrame {
     String userName;
 
     public Search(ArrayList<String[]> POIs, String floor, String userName) {
+        /**
+         *  Create a new JFrame for the search panel which will contain the textField and List of POIs the User is searching for.
+         */
         listPOIs = POIs;
         this.userName = userName;
         searchFilter("", floor);
-        // Create a new JFrame for the search panel which will contain the textField and List of POIs the User is searching for.
         JFrame searchFrame = new JFrame("Search for a POI");
 
         searchFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -62,8 +70,10 @@ public class Search extends JFrame {
         }
 
         // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
-        // Handle users clicking on a POI in the list
         myJList.addMouseListener(new MouseAdapter() {
+            /*
+             * Handle users clicking on a POI in the list
+             */
             public void mouseClicked(MouseEvent evt) {
                 JList myJList = (JList)evt.getSource();
                 if (evt.getClickCount() > 0) {
@@ -99,6 +109,9 @@ public class Search extends JFrame {
     }
 
     public void searchFilter(String query, String floor) {
+        /*
+         * filter searches as needed
+         */
         
         DefaultListModel<String> filteredList = new DefaultListModel<>();
         
@@ -117,6 +130,9 @@ public class Search extends JFrame {
     }
 
     private void showPopup(String name, String desc, String num) {
+        /*
+         * GUI for showing popup
+         */
         JFrame popupFrame = new JFrame(name);
     
         popupFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
