@@ -357,7 +357,7 @@ public class Maps {
         aboutBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AboutScreen as = new AboutScreen();
+                new AboutScreen();
             }
         });
 
@@ -576,7 +576,7 @@ public class Maps {
         aboutBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AboutScreen as = new AboutScreen();
+                new AboutScreen();
             }
         });
 
@@ -795,7 +795,7 @@ public class Maps {
         aboutBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AboutScreen as = new AboutScreen();
+                new AboutScreen();
             }
         });
 
@@ -986,15 +986,6 @@ public class Maps {
         }
         return listofPOIs;
     }
-
-    // public void navigate(String floor, String xVal, String yVal, MapPane mapPane) {
-    //     int xScrollVal = Integer.valueOf(xVal);
-    //     int yScrollVal = Integer.valueOf(yVal);
-    //     JScrollPane pane = new JScrollPane(mapPane);
-    //     pane.getHorizontalScrollBar().setValue(xScrollVal);
-    //     pane.getVerticalScrollBar().setValue(yScrollVal);
-    //     pane.requestFocus();
-    // }
 
     public static void main(String[] args) {
         new Maps();

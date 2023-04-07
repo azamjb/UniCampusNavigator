@@ -3,16 +3,7 @@
  * Testing for NewUserPOI
  */
 
-
-import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import javax.swing.*;
-import org.junit.internal.*;
-import org.junit.Assert;
-
-
-import javax.swing.JFrame;
 
 public class newUserPOITest {
 

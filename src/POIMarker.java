@@ -19,7 +19,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,13 +34,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 import java.awt.event.MouseListener;
 
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
-// import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -509,7 +505,7 @@ public class POIMarker extends JLabel {
         }
     }
 
-
+    @SuppressWarnings("unchecked")
     public void writePOI(String jpgName, String xVal, String yVal, String bldName, String floorNum, String POIType,
             String POIName,
             String description,
@@ -526,8 +522,10 @@ public class POIMarker extends JLabel {
 
             // Add new data to JSONObject
             int keysCount = jsonObject.length();
-            //String key = Integer.toString(keysCount);
+            key = Integer.toString(keysCount) + 1;
+
             JSONArray POIarr = new JSONArray();
+
             POIarr.add(jpgName);
             POIarr.add(xVal);
             POIarr.add(yVal);

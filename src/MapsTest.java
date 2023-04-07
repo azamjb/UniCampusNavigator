@@ -5,8 +5,6 @@
 
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import org.junit.Assert;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
@@ -14,8 +12,6 @@ import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.awt.Component;
-import java.awt.image.BufferedImage;
 
 
 public class MapsTest {
