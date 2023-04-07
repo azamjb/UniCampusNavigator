@@ -1,7 +1,3 @@
-/**
- * @author Andrea Jackson
- * J Unit testing for NewUserFrame
- */
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -13,8 +9,17 @@ import java.nio.file.Paths;
 import org.json.JSONObject;
 import org.junit.Test;
 
+/**
+ * J Unit testing for NewUserFrame
+ * @author Andrea Jackson
+ */
 public class NewUserFrameTest {
 
+    /**
+     * Tests the initialize() function of the NewUserFrame class
+     * @param None
+     * @return void
+     */
     @Test
     public void testInitialize() {
     System.out.println("Initialize New User Frame");

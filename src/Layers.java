@@ -1,10 +1,3 @@
-/**
- * @author Shadi Seaidoun
- * Functionality for different layers of POI visibility
- * Hides and displays certain POIs based on user selection
- */
-
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -16,18 +9,31 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Functionality for different layers of POI visibility
+ * Hides and displays certain POIs based on user selection
+ * @author Shadi Seaidoun
+ */
 public class Layers {
 
     ArrayList<POIMarker> list;
     
+    /**
+     *  Constructor, initializes a list with the ArrayList that is passed off to it.
+     *  @param newList an ArrayList of the type POIMarker
+     */
     public Layers(ArrayList<POIMarker> newList){
         this.list = newList;
     }
 
+    /**
+     * Functionality for changing Layers
+     * @param None
+     * @return void
+    */
     public void changeLayer() {
-        /**
-         Toggles layers to show based on user input
-        */
+
+        // Toggles layers to show based on user input
         JFrame layerFrame = new JFrame();
         layerFrame.setTitle("Change Layers");
         layerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

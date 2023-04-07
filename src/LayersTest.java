@@ -1,9 +1,3 @@
-/**
- * @author Azam Jawad Butt
- * J Unit testing for Layers
- */
-
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -11,8 +5,17 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.util.ArrayList;
 
+/**
+ * @author Azam Jawad Butt
+ * J Unit testing for Layers
+ */
 public class LayersTest {
 
+    /**
+     * Tests the constructor for the Layers class
+     * @param None
+     * @return void
+     */
     @Test
     public void testLayersConstructor() {
         // Tests that ArrayList<POIMarker> can be initialized correctly, not null, with correct size
@@ -25,6 +28,11 @@ public class LayersTest {
         assertEquals("ArrayList<POIMarker> should have the correct size", 2, layers.list.size());
     }
 
+    /**
+     * Tests the changeLayer() method for the Layers class
+     * @param None
+     * @return void
+     */
     @Test
     public void testChangeLayer() {
         // Tests that visibility of POIMarker objects are updated based on selected layer, uses robot to simulate interactions

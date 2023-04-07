@@ -1,11 +1,3 @@
-/**
- * @author Nathan Michael Voss
- * GUI for new POI creation
- * provides option for user to create a new POI
- */
-
-
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +11,11 @@ import javax.swing.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * GUI for new POI creation, provides option for user to create a new POI
+ * @author Nathan Michael Vos
+ * @author Andrea Jackson
+ */
 public class newUserPOI {
     final private Font mainFont = new Font("Segoe print", Font.BOLD, 18); // Create font type, to be used for text in
                                                                           // project
@@ -36,10 +33,20 @@ public class newUserPOI {
 
     JTextField buildingNameInput, floorNumInput, poiTypeInput, poiNameInput, descriptionInput, roomNumInput; // Declare
                                                                                                              // variables
-
+    /**
+     * Empty constructor for the newUserPOI class
+     * @param None
+     */
     public newUserPOI() {
     }
 
+    /**
+     * Initializes the newUserPOI screen and takes input for a new POI to be written
+     * @param XVal, String with the x coordinates of the POI
+     * @param YVAL, String with the y coordinates of the POI
+     * @param jpgName, String with the corresponding file name for the map of the POI
+     * @return void
+     */
     public void initialize(String XVal, String YVal, String jpgName) {
         setXVal(XVal);
         setYVal(YVal);
@@ -229,87 +236,168 @@ public class newUserPOI {
     }
 
     /**
-     * private getters and setters below
+     * Private setter for the name of the image
+     * @param String JpgName, the name of the image
+     * @return void
      */
     private void setJpgName(String JpgName) {
         this.JpgName = JpgName;
     }
+    /**
+     * Private setter for the x coordinate of the POI
+     * @param String xVal, the value of the x coordinate
+     * @return void
+     */
     private void setXVal(String xVal) {
         this.xValStr = xVal;
     }
-
+    /**
+     * Private setter for the y coordinate of the POI
+     * @param String yVal, the value of the y coordinate
+     * @return void
+     */
     private void setYVal(String yVal) {
         this.yValStr = yVal;
     }
-
+    /**
+     * Private setter for the building name of the POI
+     * @param String bldName, the building's name
+     * @return void
+     */
     private void setBuildingName(String bldName) {
         this.buildingName = bldName;
     }
-
+    /**
+     * Private setter for the floor of the POI
+     * @param String floorNum, what floor the POI is on
+     * @return void
+     */
     private void setFloorNum(String floorNum) {
         this.floorNumStr = floorNum;
     }
-
+    /**
+     * Private setter for the type of the POI
+     * @param String poiType, the type of the POI
+     * @return void
+     */
     private void setPOItype(String poiType) {
         this.poiType = poiType;
     }
-
+    /**
+     * Private setter for the name of the POI
+     * @param String poiName, the name of the POI
+     * @return void
+     */
     private void setPOIName(String poiName) {
         this.poiName = poiName;
     }
-
+    /**
+     * Private setter for the description of the POI
+     * @param String desc, the POI's description
+     * @return void
+     */
     private void setDescription(String desc) {
         this.description = desc;
     }
-
+    /**
+     * Private setter for the room number of the POI
+     * @param String roomNum, the POI's room number
+     * @return void
+     */
     private void setRoomNum(String roomNum) {
         this.roomNumStr = roomNum;
     }
 
+    /**
+     * Private getter for the image of the POI's map
+     * @param None
+     * @return String JpgName, the POI's corresponding jpg
+     */
     private String getJpgName() {
         return this.JpgName;
     }
-
+    /**
+     * Private getter for the x coordinate of the POI
+     * @param None
+     * @return String xValStr, the POI's x coordinate
+     */
     private String getXVal() {
         return this.xValStr;
     }
-
+    /**
+     * Private getter for the y coordinate of the POI
+     * @param None
+     * @return String yValStr, the POI's y coordinate
+     */
     private String getYVal() {
         return this.yValStr;
     }
-
+    /**
+     * Private getter for the building name for the POI
+     * @param None
+     * @return String buildingName, the name of the building for the POI
+     */
     private String getBuildingName() {
         return this.buildingName;
     }
-
+    /**
+     * Private getter for the floor number of the POI
+     * @param None
+     * @return String floorumStr, the number of the floor the POI is on
+     */
     private String getFloorNum() {
         return this.floorNumStr;
     }
-
+    /**
+     * Private getter for the POI's type
+     * @param None
+     * @return String poiType, the type of the POI
+     */
     private String getPOItype() {
         return this.poiType;
     }
-
+    /**
+     * Private getter for the POI's name
+     * @param None
+     * @return String poiName, the name of the POI
+     */
     private String getPOIName() {
         return this.poiName;
     }
-
+    /**
+     * Private getter for the POI's description
+     * @param None
+     * @return String description, the POI's description
+     */
     private String getDescription() {
         return this.description;
     }
-
+    /**
+     * Private getter for the POI's room number
+     * @param None
+     * @return String roomNumStr, the room number of the POI
+     */
     private String getRoomNum() {
         return this.roomNumStr;
     }
 
+    /**
+     * Writes the created POI to the designated json file of the user
+     * @param jpgName, String with the corresponding file name for the map of the POI
+     * @param xVal, String with the x coordinates of the POI
+     * @param yVAL, String with the y coordinates of the POI
+     * @param bldName, String with the name of the building the POI is in
+     * @param floorNum, String with the corresponding floor of the building the POI is in
+     * @param POIType, String with the type of POI to be written
+     * @param POIName, String with the name of the POI
+     * @param description, String with the description of the POI
+     * @param roomNumString, String with the room number of the POI
+     * @return void
+     */
     public void writePOI(String jpgName, String xVal, String yVal, String bldName, String floorNum, String POIType,
             String POIName,
             String description,
             String roomNumString) {
-                /*
-                 * Creates new POI based on all @params inputted by user
-                 */
-
 
         String filename = this.userName + ".json";
         try {

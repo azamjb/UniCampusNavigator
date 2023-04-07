@@ -1,9 +1,3 @@
-/**
- * @author Riley Sgro
- * GUI for about screen
- * Displays information about the program, creators, purpose, etc
- */
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -14,11 +8,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * @author Riley Sgro
+ * GUI for the About screen on the application
+ * Displays information about the program, creators, purpose, etc
+ */
 public class AboutScreen extends JDialog {
 
     private static final long serialVersionUID = 1L;
     final private Font mainFont = new Font("Segoe print", Font.BOLD, 18); // Create font type, to be used for text in project
 
+    /**
+     *  Constructor, creates a content panel for the About information related to the program
+     *  @param None
+     */
     public AboutScreen() {
         setTitle("About My Application");
         setSize(800, 400);
@@ -49,10 +52,5 @@ public class AboutScreen extends JDialog {
         add(contentPanel);
         setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new AboutScreen();
-    }
-
 
 }

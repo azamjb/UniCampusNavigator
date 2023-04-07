@@ -1,10 +1,3 @@
-/**
- * @author Nathan Michael Voss
- * GUI for new user frame
- * provides option to create a new user
- */
-
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,12 +12,22 @@ import javax.swing.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * GUI for new user frame, provides option to create a new user
+ * @author Andrea Jackson
+ * @author Azam Jawad Butt
+ */
 public class NewUserFrame extends JFrame {
     final private Font mainFont = new Font("Segoe print", Font.BOLD, 18); // Create font type, to be used for text in
                                                                           // project
 
     JTextField UsernameInput, PasswordInput; // Declare variables for username and password tex input
 
+    /**
+     * Initializes the GUI and functionality required to create a new User.
+     * @param None
+     * @return void
+     */
     public void initialize() {
 
         // Initialize frame to display

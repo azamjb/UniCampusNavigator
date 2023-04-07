@@ -1,11 +1,3 @@
-/**
- * @author Azam Jawad Butt
- * GUI for initial Login Screen
- * Includes options to login, or create new account
- * Once logged in, will lead to main page
- */
-
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +11,13 @@ import javax.swing.*;
 
 import org.json.JSONObject;
 
+/**
+ * GUI and login functionality for the initial Login Screen of the program
+ * Includes options to login, or create new account
+ * Once logged in, will lead to main page
+ * @author Azam Jawad Butt
+ * @author Andrea Jackson
+ */
 public class LoginFrame extends JFrame {
 
     public static String userNameStr;
@@ -26,6 +25,11 @@ public class LoginFrame extends JFrame {
                                                                           // project
     JTextField UsernameInput, PasswordInput; // Declare variables for username and password tex input
 
+    /**
+     * Functionality for initializing the program's start up screen
+     * @param None
+     * @return void
+    */
     public void initialize() {
         JFrame mainFrame = new JFrame();
         userNameStr = " ";
@@ -159,13 +163,20 @@ public class LoginFrame extends JFrame {
         mainFrame.setVisible(true);
     }
 
+    /**
+     * Returns the user name of the user attempting to log in
+     * @param None
+     * @return String of the user's user name
+    */
     public String getUserStr() {
-        /**
-        * Getter, returns username 
-        */
         return userNameStr;
     }
 
+    /**
+     * Handles the execution of the program from the beginning
+     * @param String[] args 
+     * @return void
+    */
     public static void main(String[] args) {
         LoginFrame myFrame = new LoginFrame(); // Create new instance of LoginFrame class
         myFrame.initialize(); // Initialize the LoginFrame instance

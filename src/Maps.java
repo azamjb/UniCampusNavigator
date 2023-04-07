@@ -1,9 +1,3 @@
-/**
- * @author Shadi Seaidoun
- * Displays maps of the buildings, with lots of features
- * Includes building selection screen, which then loads map
- * Options to change floors, panel on top of screen providing many features
- */
 import java.awt.*;
 import javax.swing.*;
 
@@ -25,7 +19,16 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
-
+/**
+ * Displays maps of the buildings, with lots of features
+ * Includes building selection screen, which then loads map
+ * Options to change floors, panel on top of screen providing many features
+ * @author Andrea Jackson
+ * @author Azam Jawad Butt
+ * @author Shadi Seaidoun
+ * @author Riley Sgro
+ * @author Nathan Michael Vos
+ */
 public class Maps {
     // Json file name from username
     LoginFrame temp;
@@ -43,7 +46,10 @@ public class Maps {
             "images/tc3.png", "4th Floor", "images/tc4.png");
     String currentBuilding = "";
 
-    // Constructor to prompt user for to select building choice
+    /**
+     * Default constructor of the Maps class, intitializes the building select screen
+     * @param None
+     */
     public Maps() {
         buildingSelect();
 
@@ -52,7 +58,11 @@ public class Maps {
         userName = temp.getUserStr();
     }
 
-    // skip building select (called after creating a User POI)
+    /**
+     * Modified constructor to skip the building selection after creating a User POI
+     * @param displayMap, the string of the map to display
+     * @param userName, the user name of the current user
+     */
     public Maps(String displayMap, String userName) {
         this.userName = userName;
         if (displayMap.charAt(0) == 'm') {
@@ -66,7 +76,13 @@ public class Maps {
         }
     }
 
-    // skip building select and warp to POI (called after searching and warping to POI)
+    /**
+     * Modified constructor to skip building select and warp to POI after searching and warping to a POI
+     * @param displayMap, the string of the map to display
+     * @param userName, the user name of the current user
+     * @param xVal, the x coordinate to scroll to
+     * @param yVal, the y coordinate to scroll to
+     */
     public Maps(String displayMap, String userName, int xVal, int yVal) {
         this.userName = userName;
         if (displayMap.charAt(0) == 'm') {
@@ -90,11 +106,12 @@ public class Maps {
     }
 
    
-    // plan
+    /**
+     * Screen that prompts the user to select between three buildings to navigate through floor
+     * @param None
+     * @return void
+     */
     public void buildingSelect() {
-        /**
-         * Prompt the user to select between three buildings to navigate through floor
-         */
         Font mainFont = new Font("Segoe print", Font.BOLD, 25);
         Dimension buttonSize = new Dimension(170, 75);
         JFrame mainFrame = new JFrame();
@@ -227,11 +244,12 @@ public class Maps {
 
     }
 
+    /**
+     * Display Middlesex College floor plan and call from any functionality methods outside of the Maps class when needed
+     * @param floor, string of the floor to be displayed
+     * @return void
+     */
     public void displayMC(String floor) {
-        /**
-         * Display middlesex College floor plan
-         */
-
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
 
@@ -447,11 +465,12 @@ public class Maps {
         mainFrame.setVisible(true);
     }
 
+    /**
+     * Display Western Science Centre's floor plan and call from any functionality methods outside of the Maps class when needed
+     * @param floor, string of the floor to be displayed
+     * @return void
+     */
     public void displayWSC(String floor) {
-        /**
-         * Display Western Science Center floor plan
-         */
-
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
 
@@ -665,11 +684,12 @@ public class Maps {
         mainFrame.setVisible(true);
     }
 
+    /**
+     * Display Talbot College's floor plan and call from any functionality methods outside of the Maps class when needed
+     * @param floor, string of the floor to be displayed
+     * @return void
+     */
     public void displayTC(String floor) {
-        /**
-         * Display middlesex College floor plan
-         */
-
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
         Dimension buttonSize = new Dimension(100, 25);
 
@@ -883,7 +903,10 @@ public class Maps {
         mainFrame.setVisible(true);
     }
 
-    // Changes floor of the building
+    /**
+     * Changes floor of the building
+     * @param floor, string of the floor to change to
+     */
     public void changeFloor(String floor) {
         if (currentBuilding.equals("Middlesex College")) {
             displayMC(floor);
@@ -896,10 +919,12 @@ public class Maps {
         }
     }
 
+    /**
+     * Returns a dictionary containing the POIs for the current user by reading their json file
+     * @param None
+     * @return Map<String, String[]> dictionary, or null if it is empty
+     */
     private Map<String, String[]> getUserPOIHashMap() {
-        /**
-         * turning json into a dictionary
-         */
         String filename = this.userName + ".json";
         try {
             // file contents into a byte array
@@ -924,10 +949,12 @@ public class Maps {
         return null;
     }
 
+    /**
+     * Returns a dictionary containing the POIs for the Admin by reading the admin.json file
+     * @param None
+     * @return Map<String, String[]> dictionary, or null if it is empty
+     */
     private Map<String, String[]> getAdminPOIHashMap() {
-        /**
-         * turning json into a dictionary
-         */
         String filename = "admin.json";
         try {
             // file contents into a byte array
@@ -952,11 +979,12 @@ public class Maps {
         return null;
     }
 
-    
+    /**
+     * Creates an ArrayList of all POIs on all Maps, does not allow duplicates
+     * @param userName, takes in the current user's username
+     * @return ArrayList<String[]> listofPOIs, ArrayList containing all POIs (both built in and not) for the user
+     */
     public ArrayList<String[]> listofPOIs(String userName) {
-        /**
-         * creates an array list of all POIs on all Maps, does not allow duplicates
-         */
         ArrayList<String[]> listofPOIs = new ArrayList<>();
 
         for (int i = 1; i < getAdminPOIHashMap().size(); i++) {
@@ -986,9 +1014,4 @@ public class Maps {
         }
         return listofPOIs;
     }
-
-    public static void main(String[] args) {
-        new Maps();
-    }
-
 }

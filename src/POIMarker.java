@@ -1,13 +1,3 @@
-/**
- * @author Shadi Seaidoun
- * Design and function for a POI
- * Once clicked,popup appears and displays informaiton about poi
- * poi information is stored in json data
- * poi's are placed on the map based on coordinates, displayed as an image
- *
- */
-
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -42,7 +32,13 @@ import org.json.simple.JSONArray;
 import java.util.HashMap;
 import java.util.Map;
 
-// https://stackoverflow.com/questions/14705684/placing-a-marker-within-the-image
+/**
+ * Design and function for a POI, once clicked -- popup appears and displays informaiton about poi
+ * poi information is stored in json data, poi's are placed on the map based on coordinates, displayed as an image
+ * <p> influenced by https://stackoverflow.com/questions/14705684/placing-a-marker-within-the-image
+ * @author Nathan Vos
+ * @author Shadi Seaidoun
+ */
 public class POIMarker extends JLabel {
 
     boolean favourite; // keep track if poi should be in favourites
@@ -52,6 +48,12 @@ public class POIMarker extends JLabel {
     JTextField buildingNameInput, floorNumInput, poiTypeInput, poiNameInput, descriptionInput, roomNumInput; // Declare
     final private Font mainFont = new Font("Segoe print", Font.BOLD, 18); // Create font type, to be used for text in project
 
+    /**
+     * Constructor that creates a POIMarker object to be displayed on the map.
+     * @param desc, the description of the POI
+     * @param name, the name of the POI
+     * @param num, the room number of the POI
+     */
     public POIMarker(String desc, String name, String num) {
         favourite = false;
         try {
@@ -68,11 +70,15 @@ public class POIMarker extends JLabel {
         });
     }
 
+    /**
+     * Displays a pop up menu when a POI is clicked containing its information
+     * @param e, the MouseEvent representing when the POIMarker is clicked
+     * @param name, the name of the POI to be displayed in the pop up
+     * @param desc, the description of the POI to be displayed in the pop up
+     * @param num, the room number of the POI to be displayed in the pop up
+     * @return void
+     */
     private void showPopup(MouseEvent e, String name, String desc, String num) {
-        /**
-         * display information about poi in a popup when it is clicked
-         * @params are the information to be displayed when poi is clicked
-         */
         JFrame popupFrame = new JFrame(name);
     
         popupFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -393,8 +399,6 @@ public class POIMarker extends JLabel {
                     
             }
         });
-
-
         favPanel.add(favBtn);
         favPanel.add(unfavBtn);
         favPanel.add(editBtn);
@@ -407,41 +411,61 @@ public class POIMarker extends JLabel {
         popupFrame.add(panel);
     }
 
-    // set favourite as true
+    /**
+     * Private setter to make a POI a favourited POI
+     * @param None
+     * @return boolean favorite set to true
+     */
     public void setFavourite(){
         this.favourite = true;
     }
-
-    // set favourite as false
+    /**
+     * Private setter to unfavourite a POI
+     * @param None
+     * @return boolean favorite set to false
+     */
     public void unsetFavourite(){
         this.favourite = false;
     }
-
-    // check whether or not poi is a favourite
+    /**
+     * Private getter to see a POI's favourite status
+     * @param None
+     * @return boolean value of favourite
+     */
     public boolean isFavourite(){
         return this.favourite;
     }
-
-    // set poi type
+    /**
+     * Private setter to specify a POI's type
+     * @param String newType, the type the POI will receive
+     * @return void
+     */
     public void setType(String newType){
         this.type = newType;
     }
-
-    // get poi type
+    /**
+     * Private getter to return a POI's type
+     * @param None
+     * @return String of the POI's type.
+     */
     public String getType(){
         return this.type;
     }
-
-    // set the user type to for poi editing
+    /**
+     * Private setter of the user's userType
+     * @param String type, the user's type to be set.
+     * @return void
+     */
     public void setUserType(String type){
         this.userType = type;
     }
 
-    // Get admin pois for editing
+    /**
+     * Returns a dictionary containing the POIs for the Admin by reading the admin.json file
+     * @param None
+     * @return Map<String, String[]> dictionary, or null if it is empty
+     */
     private Map<String, String[]> getAdminPOIHashMap() {
-        /**
-         * turning json into a dictionary
-         */
         String filename = "admin.json";
         try {
             // file contents into a byte array
@@ -466,11 +490,12 @@ public class POIMarker extends JLabel {
         return null;
     }
 
-    // get user pois for editing
+    /**
+     * Returns a dictionary containing the POIs for the current user by reading their json file
+     * @param None
+     * @return Map<String, String[]> dictionary, or null if it is empty
+     */
     private Map<String, String[]> getUserPOIHashMap() {
-        /**
-         * turning json into a dictionary
-         */
         String filename = this.userType + ".json";
         try {
             // file contents into a byte array
@@ -495,16 +520,32 @@ public class POIMarker extends JLabel {
         return null;
     }
 
+    /**
+     * Simulates a click from a mouse.
+     * @param None
+     * @return void
+     */
     public void simulateClick() {
-        /**
-         * For use in JUnit testing
-         */
+       
         MouseEvent me = new MouseEvent(this, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, 0, 0, 1, false);
         for (MouseListener listener : this.getMouseListeners()) {
             listener.mouseClicked(me);
         }
     }
 
+    /**
+     * Writes a POI to the corresponding json file in the correct index.
+     * @param jpgName, String with the corresponding file name for the map of the POI
+     * @param xVal, String with the x coordinates of the POI
+     * @param yVAL, String with the y coordinates of the POI
+     * @param bldName, String with the name of the building the POI is in
+     * @param floorNum, String with the corresponding floor of the building the POI is in
+     * @param POIType, String with the type of POI to be written
+     * @param POIName, String with the name of the POI
+     * @param description, String with the description of the POI
+     * @param roomNumString, String with the room number of the POI
+     * @param key, the index of the json file to be updated
+     */
     @SuppressWarnings("unchecked")
     public void writePOI(String jpgName, String xVal, String yVal, String bldName, String floorNum, String POIType,
             String POIName,

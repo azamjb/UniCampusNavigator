@@ -1,9 +1,3 @@
-/**
- * @author Andrea Jackson
- * J Unit testing for Maps
- */
-
-
 import static org.junit.Assert.assertTrue;
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -13,25 +7,42 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * J Unit testing for the Maps class
+ * @author Andrea Jackson
+ */
 public class MapsTest {
 
+    // create a Maps object for testing
     private Maps maps;
 
+    /**
+     * Initializes the Map object
+     * @param None
+     * @return void
+     */
     @Before
     public void setUp() {
         maps = new Maps();
     }
 
+    /**
+     * Tears down the Map object
+     * @param None
+     * @return void
+     */
     @After
     public void tearDown() {
     maps = null;
     }
+
+    /**
+     * Tests the buildingSelect() function 
+     * @param None
+     * @return void
+     */
     @Test
     public void testBuildingSelect() throws AWTException {
-        /**
-         * Tests that building is selected after button is clicked
-         */
     JFrame frame = new JFrame();
     frame.setVisible(true);
     Robot robot = new Robot();
@@ -41,8 +52,5 @@ public class MapsTest {
     robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     robot.delay(2000);
     assertTrue(maps.currentBuilding != null);
-
     }
-
-
 }

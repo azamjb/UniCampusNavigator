@@ -1,9 +1,3 @@
-/**
- * @author Nathan Michael Voss
- * Provides functionality for searching POI's
- * Button on main page allows users to search for a poi on the given map
- * will then list all pois of that category, take them to the one they want
- */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,7 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-// https://www.youtube.com/watch?v=qPMesvqZsmA&t=393s
+/**
+ * Provides functionality for searching POI's
+ * will list all pois on that floor, take them to the one they want by clicking
+ * <p> received inspiration from https://www.youtube.com/watch?v=qPMesvqZsmA&t=393s
+ * @author Nathan Michael Vos
+ */
 public class Search extends JFrame {
     
     ArrayList<String[]> listPOIs;
@@ -34,10 +33,13 @@ public class Search extends JFrame {
     JTextField searchField = new JTextField();
     String userName;
 
+    /**
+     * Constructor that creates a new JFrame for the search panel containing the textField and List of POIs
+     * @param POIs is an ArrayList containing a list of Strings that contain the POIs.
+     * @param floor is a String representing the floor (map image) currently displayed
+     * @param userName is the user name of the current user
+     */
     public Search(ArrayList<String[]> POIs, String floor, String userName) {
-        /**
-         *  Create a new JFrame for the search panel which will contain the textField and List of POIs the User is searching for.
-         */
         listPOIs = POIs;
         this.userName = userName;
         searchFilter("", floor);
@@ -68,12 +70,7 @@ public class Search extends JFrame {
                 floorPOIs.add(listPOIs.get(i));
             }
         }
-
-        // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
         myJList.addMouseListener(new MouseAdapter() {
-            /*
-             * Handle users clicking on a POI in the list
-             */
             public void mouseClicked(MouseEvent evt) {
                 JList myJList = (JList)evt.getSource();
                 if (evt.getClickCount() > 0) {
@@ -108,11 +105,13 @@ public class Search extends JFrame {
         });
     }
 
+    /**
+     * Filters out POIs based on the floor currently displayed, and what the user searches for
+     * @param query, what they typed into the search's text field
+     * @param floor, the floor currently displayed to them
+     * @return void
+     */
     public void searchFilter(String query, String floor) {
-        /*
-         * filter searches as needed
-         */
-        
         DefaultListModel<String> filteredList = new DefaultListModel<>();
         
         listPOIs.stream().forEach((POI) -> {
@@ -129,10 +128,14 @@ public class Search extends JFrame {
         myJList.setModel(defaultListModel);
     }
 
+    /**
+     * Shows a pop up menu describing the POI once it has been warped to
+     * @param name, String of the name of the POI
+     * @param desc, String of the description of the POI
+     * @param num, String of the room number of the POI
+     * @return void
+     */
     private void showPopup(String name, String desc, String num) {
-        /*
-         * GUI for showing popup
-         */
         JFrame popupFrame = new JFrame(name);
     
         popupFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
