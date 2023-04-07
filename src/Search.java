@@ -2,17 +2,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 // https://www.youtube.com/watch?v=qPMesvqZsmA&t=393s
@@ -78,7 +82,11 @@ public class Search extends JFrame {
                             String floor = floorPOIs.get(poiIndex)[0];
                             int xVal = Integer.valueOf(floorPOIs.get(poiIndex)[1]);
                             int yVal = Integer.valueOf(floorPOIs.get(poiIndex)[2]);
+                            String name = floorPOIs.get(poiIndex)[6];
+                            String desc = floorPOIs.get(poiIndex)[7];
+                            String num = floorPOIs.get(poiIndex)[8];
                             new Maps(floor, userName, xVal, yVal);
+                            showPopup(name, desc, num);
                         }
                         else {
                             searchFrame.dispose();
@@ -106,6 +114,43 @@ public class Search extends JFrame {
         });
         defaultListModel = filteredList;
         myJList.setModel(defaultListModel);
+    }
+
+    private void showPopup(String name, String desc, String num) {
+        JFrame popupFrame = new JFrame(name);
+    
+        popupFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        popupFrame.setSize(575, 350);
+        popupFrame.setLocationRelativeTo(null);
+        popupFrame.setVisible(true);
+    
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    
+        // Create a panel for the title and room number labels
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        JLabel titleLabel = new JLabel("Name: " + name);
+        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 18));
+        topPanel.add(titleLabel);
+    
+        JLabel roomnumLabel = new JLabel("Room number: " + num);
+        roomnumLabel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        roomnumLabel.setFont(roomnumLabel.getFont().deriveFont(18));
+        topPanel.add(roomnumLabel);
+    
+        // Create a panel for the description JTextArea
+        JPanel descPanel = new JPanel(new BorderLayout());
+        JTextArea description = new JTextArea(desc);
+        description.setLineWrap(true);
+        description.setWrapStyleWord(true);
+        description.setEditable(false);
+        descPanel.add(description, BorderLayout.CENTER);
+    
+        // Add the panels to the parent panel
+        panel.add(topPanel, BorderLayout.NORTH);
+        panel.add(descPanel, BorderLayout.CENTER);
+    
+        popupFrame.add(panel);
     }
 }
 
