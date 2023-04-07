@@ -11,8 +11,6 @@ public class LoginFrameTest {
     
     /**
      * Testing the functionality of the login frame
-     * @param None
-     * @return void
      */
     @Test
     public void testInitialize() {
@@ -27,8 +25,6 @@ public class LoginFrameTest {
 
     /**
      * Testing the retention of the logged in userName with admin user
-     * @param None
-     * @return void
      */
     @Test
     public void testGetUserStr() {

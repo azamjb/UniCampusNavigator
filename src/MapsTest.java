@@ -18,8 +18,6 @@ public class MapsTest {
 
     /**
      * Initializes the Map object
-     * @param None
-     * @return void
      */
     @Before
     public void setUp() {
@@ -28,8 +26,6 @@ public class MapsTest {
 
     /**
      * Tears down the Map object
-     * @param None
-     * @return void
      */
     @After
     public void tearDown() {
@@ -37,9 +33,7 @@ public class MapsTest {
     }
 
     /**
-     * Tests the buildingSelect() function 
-     * @param None
-     * @return void
+     * Tests the buildingSelect() function
      */
     @Test
     public void testBuildingSelect() throws AWTException {

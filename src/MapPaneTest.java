@@ -9,9 +9,7 @@ import java.awt.Dimension;
 public class MapPaneTest {
 
     /**
-     * Tests if constuctor successfully creates object
-     * @param None
-     * @return void
+     * Tests if constructor successfully creates object
      */
     @Test
     public void testMapPaneConstructor() {
@@ -21,8 +19,6 @@ public class MapPaneTest {
 
     /**
      * Tests GetPreferredSize when valid image is presented
-     * @param None
-     * @return void
      */
     @Test
     public void testGetPreferredSizeWithMap() {
@@ -34,8 +30,6 @@ public class MapPaneTest {
 
     /**
      * Tests GetPrefferedSize when no image is provided
-     * @param None
-     * @return void
      */
     @Test
     public void testGetPreferredSizeWithoutMap() {

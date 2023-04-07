@@ -17,8 +17,6 @@ public class POIMarkerTest {
 
     /**
      * Sets up a POIMarker object
-     * @param None
-     * @return void
      */
     @Before
     public void setUp() {
@@ -27,8 +25,6 @@ public class POIMarkerTest {
 
     /**
      * Tests that the POIMarker object was created correctly
-     * @param None
-     * @return void
      */
     @Test
     public void testPOIMarker() {
@@ -40,8 +36,6 @@ public class POIMarkerTest {
 
     /**
      * Test that popup appears when poiMarker is clicked
-     * @param None
-     * @return void
      */
     @Test
     public void testShowPopup() {

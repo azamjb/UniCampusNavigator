@@ -13,8 +13,6 @@ public class LayersTest {
 
     /**
      * Tests the constructor for the Layers class
-     * @param None
-     * @return void
      */
     @Test
     public void testLayersConstructor() {
@@ -30,8 +28,6 @@ public class LayersTest {
 
     /**
      * Tests the changeLayer() method for the Layers class
-     * @param None
-     * @return void
      */
     @Test
     public void testChangeLayer() {

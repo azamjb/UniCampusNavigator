@@ -35,12 +35,11 @@ import java.util.Map;
 /**
  * Design and function for a POI, once clicked -- popup appears and displays informaiton about poi
  * poi information is stored in json data, poi's are placed on the map based on coordinates, displayed as an image
- * <p> influenced by https://stackoverflow.com/questions/14705684/placing-a-marker-within-the-image
  * @author Nathan Vos
  * @author Shadi Seaidoun
  */
 public class POIMarker extends JLabel {
-
+    // influenced by https://stackoverflow.com/questions/14705684/placing-a-marker-within-the-image
     boolean favourite; // keep track if poi should be in favourites
     String type; // keep track of poi for layers
     String userType; // keep track of user type to help with editing
@@ -76,7 +75,6 @@ public class POIMarker extends JLabel {
      * @param name, the name of the POI to be displayed in the pop up
      * @param desc, the description of the POI to be displayed in the pop up
      * @param num, the room number of the POI to be displayed in the pop up
-     * @return void
      */
     private void showPopup(MouseEvent e, String name, String desc, String num) {
         JFrame popupFrame = new JFrame(name);
@@ -413,23 +411,18 @@ public class POIMarker extends JLabel {
 
     /**
      * Private setter to make a POI a favourited POI
-     * @param None
-     * @return boolean favorite set to true
      */
     public void setFavourite(){
         this.favourite = true;
     }
     /**
      * Private setter to unfavourite a POI
-     * @param None
-     * @return boolean favorite set to false
      */
     public void unsetFavourite(){
         this.favourite = false;
     }
     /**
      * Private getter to see a POI's favourite status
-     * @param None
      * @return boolean value of favourite
      */
     public boolean isFavourite(){
@@ -437,15 +430,13 @@ public class POIMarker extends JLabel {
     }
     /**
      * Private setter to specify a POI's type
-     * @param String newType, the type the POI will receive
-     * @return void
+     * @param newType, the type the POI will receive
      */
     public void setType(String newType){
         this.type = newType;
     }
     /**
      * Private getter to return a POI's type
-     * @param None
      * @return String of the POI's type.
      */
     public String getType(){
@@ -453,8 +444,7 @@ public class POIMarker extends JLabel {
     }
     /**
      * Private setter of the user's userType
-     * @param String type, the user's type to be set.
-     * @return void
+     * @param type, the user's type to be set.
      */
     public void setUserType(String type){
         this.userType = type;
@@ -462,8 +452,7 @@ public class POIMarker extends JLabel {
 
     /**
      * Returns a dictionary containing the POIs for the Admin by reading the admin.json file
-     * @param None
-     * @return Map<String, String[]> dictionary, or null if it is empty
+     * @return dictionary, or null if it is empty
      */
     private Map<String, String[]> getAdminPOIHashMap() {
         String filename = "admin.json";
@@ -492,8 +481,7 @@ public class POIMarker extends JLabel {
 
     /**
      * Returns a dictionary containing the POIs for the current user by reading their json file
-     * @param None
-     * @return Map<String, String[]> dictionary, or null if it is empty
+     * @return dictionary, or null if it is empty
      */
     private Map<String, String[]> getUserPOIHashMap() {
         String filename = this.userType + ".json";
@@ -522,8 +510,6 @@ public class POIMarker extends JLabel {
 
     /**
      * Simulates a click from a mouse.
-     * @param None
-     * @return void
      */
     public void simulateClick() {
        
@@ -537,7 +523,7 @@ public class POIMarker extends JLabel {
      * Writes a POI to the corresponding json file in the correct index.
      * @param jpgName, String with the corresponding file name for the map of the POI
      * @param xVal, String with the x coordinates of the POI
-     * @param yVAL, String with the y coordinates of the POI
+     * @param yVal, String with the y coordinates of the POI
      * @param bldName, String with the name of the building the POI is in
      * @param floorNum, String with the corresponding floor of the building the POI is in
      * @param POIType, String with the type of POI to be written

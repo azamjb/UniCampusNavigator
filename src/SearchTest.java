@@ -11,8 +11,6 @@ public class SearchTest {
 
     /**
      * Tests the overall functionality of the searchFilter() method
-     * @param None
-     * @return void
      */
     @Test
     public void testSearchFilter() {
@@ -32,8 +30,6 @@ public class SearchTest {
 
     /**
      * Tests the functionality of the searchFilter() method when there are no matching results
-     * @param None
-     * @return void
      */
     @Test
     public void testSearchFilterNoResults() {

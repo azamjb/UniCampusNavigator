@@ -25,8 +25,6 @@ public class NewUserFrame extends JFrame {
 
     /**
      * Initializes the GUI and functionality required to create a new User.
-     * @param None
-     * @return void
      */
     public void initialize() {
 

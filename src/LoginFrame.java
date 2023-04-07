@@ -15,8 +15,8 @@ import org.json.JSONObject;
  * GUI and login functionality for the initial Login Screen of the program
  * Includes options to login, or create new account
  * Once logged in, will lead to main page
- * @author Azam Jawad Butt
  * @author Andrea Jackson
+ * @author Azam Jawad Butt
  */
 public class LoginFrame extends JFrame {
 
@@ -27,8 +27,6 @@ public class LoginFrame extends JFrame {
 
     /**
      * Functionality for initializing the program's start up screen
-     * @param None
-     * @return void
     */
     public void initialize() {
         JFrame mainFrame = new JFrame();
@@ -165,7 +163,6 @@ public class LoginFrame extends JFrame {
 
     /**
      * Returns the user name of the user attempting to log in
-     * @param None
      * @return String of the user's user name
     */
     public String getUserStr() {
@@ -174,8 +171,6 @@ public class LoginFrame extends JFrame {
 
     /**
      * Handles the execution of the program from the beginning
-     * @param String[] args 
-     * @return void
     */
     public static void main(String[] args) {
         LoginFrame myFrame = new LoginFrame(); // Create new instance of LoginFrame class

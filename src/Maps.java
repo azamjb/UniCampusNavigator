@@ -47,8 +47,7 @@ public class Maps {
     String currentBuilding = "";
 
     /**
-     * Default constructor of the Maps class, intitializes the building select screen
-     * @param None
+     * Default constructor of the Maps class, initializes the building select screen
      */
     public Maps() {
         buildingSelect();
@@ -108,8 +107,6 @@ public class Maps {
    
     /**
      * Screen that prompts the user to select between three buildings to navigate through floor
-     * @param None
-     * @return void
      */
     public void buildingSelect() {
         Font mainFont = new Font("Segoe print", Font.BOLD, 25);
@@ -247,7 +244,6 @@ public class Maps {
     /**
      * Display Middlesex College floor plan and call from any functionality methods outside of the Maps class when needed
      * @param floor, string of the floor to be displayed
-     * @return void
      */
     public void displayMC(String floor) {
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
@@ -468,7 +464,6 @@ public class Maps {
     /**
      * Display Western Science Centre's floor plan and call from any functionality methods outside of the Maps class when needed
      * @param floor, string of the floor to be displayed
-     * @return void
      */
     public void displayWSC(String floor) {
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
@@ -687,7 +682,6 @@ public class Maps {
     /**
      * Display Talbot College's floor plan and call from any functionality methods outside of the Maps class when needed
      * @param floor, string of the floor to be displayed
-     * @return void
      */
     public void displayTC(String floor) {
         Font mainFont = new Font("Segoe print", Font.PLAIN, 12);
@@ -921,8 +915,7 @@ public class Maps {
 
     /**
      * Returns a dictionary containing the POIs for the current user by reading their json file
-     * @param None
-     * @return Map<String, String[]> dictionary, or null if it is empty
+     * @return dictionary, or null if it is empty
      */
     private Map<String, String[]> getUserPOIHashMap() {
         String filename = this.userName + ".json";
@@ -951,8 +944,7 @@ public class Maps {
 
     /**
      * Returns a dictionary containing the POIs for the Admin by reading the admin.json file
-     * @param None
-     * @return Map<String, String[]> dictionary, or null if it is empty
+     * @return dictionary, or null if it is empty
      */
     private Map<String, String[]> getAdminPOIHashMap() {
         String filename = "admin.json";
@@ -982,7 +974,7 @@ public class Maps {
     /**
      * Creates an ArrayList of all POIs on all Maps, does not allow duplicates
      * @param userName, takes in the current user's username
-     * @return ArrayList<String[]> listofPOIs, ArrayList containing all POIs (both built in and not) for the user
+     * @return ArrayList listofPOIs, ArrayList containing all POIs (both built in and not) for the user
      */
     public ArrayList<String[]> listofPOIs(String userName) {
         ArrayList<String[]> listofPOIs = new ArrayList<>();

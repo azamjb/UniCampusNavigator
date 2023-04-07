@@ -28,8 +28,6 @@ public class Layers {
 
     /**
      * Functionality for changing Layers
-     * @param None
-     * @return void
     */
     public void changeLayer() {
 

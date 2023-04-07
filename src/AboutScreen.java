@@ -19,8 +19,7 @@ public class AboutScreen extends JDialog {
     final private Font mainFont = new Font("Segoe print", Font.BOLD, 18); // Create font type, to be used for text in project
 
     /**
-     *  Constructor, creates a content panel for the About information related to the program
-     *  @param None
+     * Constructor, creates a content panel for the About information related to the program
      */
     public AboutScreen() {
         setTitle("About My Application");

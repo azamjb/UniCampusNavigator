@@ -30,7 +30,6 @@ public class MapPane extends JLayeredPane {
 
     /**
      * Gets the prefferedSize of the image.
-     * @param None
      * @return Dimension object containing the preferred size of the map
      */
     @Override
@@ -41,8 +40,7 @@ public class MapPane extends JLayeredPane {
 
     /**
      * Paints the map onto the MapPane object.
-     * @param Graphics g, the map to be painted
-     * @return void
+     * @param g, Graphics object of the map to be painted
      */
     @Override
     protected void paintComponent(Graphics g) {

@@ -17,8 +17,6 @@ public class NewUserFrameTest {
 
     /**
      * Tests the initialize() function of the NewUserFrame class
-     * @param None
-     * @return void
      */
     @Test
     public void testInitialize() {

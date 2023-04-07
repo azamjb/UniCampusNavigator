@@ -21,12 +21,11 @@ import javax.swing.JTextField;
 
 /**
  * Provides functionality for searching POI's
- * will list all pois on that floor, take them to the one they want by clicking
- * <p> received inspiration from https://www.youtube.com/watch?v=qPMesvqZsmA&t=393s
+ * will list all POIs on that floor, take them to the one they want by clicking it.
  * @author Nathan Michael Vos
  */
 public class Search extends JFrame {
-    
+    // inspired by https://www.youtube.com/watch?v=qPMesvqZsmA&t=393s
     ArrayList<String[]> listPOIs;
     DefaultListModel<String> defaultListModel;
     JList<String> myJList = new JList<>();
@@ -109,7 +108,6 @@ public class Search extends JFrame {
      * Filters out POIs based on the floor currently displayed, and what the user searches for
      * @param query, what they typed into the search's text field
      * @param floor, the floor currently displayed to them
-     * @return void
      */
     public void searchFilter(String query, String floor) {
         DefaultListModel<String> filteredList = new DefaultListModel<>();
@@ -133,7 +131,6 @@ public class Search extends JFrame {
      * @param name, String of the name of the POI
      * @param desc, String of the description of the POI
      * @param num, String of the room number of the POI
-     * @return void
      */
     private void showPopup(String name, String desc, String num) {
         JFrame popupFrame = new JFrame(name);
