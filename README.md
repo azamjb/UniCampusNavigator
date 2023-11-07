@@ -1,10 +1,16 @@
 Description:
-The software enables users to access a comprehensive view of three prominent buildings located on the University of Western Ontario (UWO) campus. Users can effortlessly navigate through each building's multiple floors and explore various points of interest (POIs) within them. The software also offers the flexibility to toggle different layers, allowing users to display specific types of POIs as per their preferences. Additionally, users have the option to add POIs to a list of favorites, which can also be conveniently displayed using the layers feature. Furthermore, the software includes a search functionality that allows users to quickly locate and scroll towards their desired POIs on the map, enhancing the overall usability and convenience of the application. Users may also create their own POI's and edit them later on, however only users signed in as the admin will have access to edit built in POI's.
+The software enables users to access a comprehensive view of three prominent buildings located on the University of Western Ontario (UWO) campus.
+
+Users can effortlessly navigate through each building's multiple floors and explore various points of interest (POIs) within them. The software also offers the flexibility to toggle different layers, allowing users to display specific types of POIs as per their preferences. Additionally, users have the option to add POIs to a list of favorites, which can also be conveniently displayed using the layers feature. 
+
+Furthermore, the software includes a search functionality that allows users to quickly locate and scroll towards their desired POIs on the map, enhancing the overall usability and convenience of the application. Users may also create their own POI's and edit them later on, however only users signed in as the admin will have access to edit built in POI's.
 
 
 <img width="840" alt="Screenshot 2023-11-06 at 8 38 20 PM" src="https://github.com/azamjb/UniCampusNavigator/assets/85136312/b4ba22bd-354a-4d54-852f-1ead96143168">
 
 <img width="1206" alt="Screenshot 2023-11-06 at 8 39 55 PM" src="https://github.com/azamjb/UniCampusNavigator/assets/85136312/3d74c169-c3cc-46e5-b612-0ed0c1b46f53">
+
+
 
 
 Required libraries: - Files (JSON): 1. json-simple-1.1.1.jar 2. json-20180813
