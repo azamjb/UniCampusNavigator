@@ -1,3 +1,5 @@
+# Western University Campus Navigator
+
 Description:
 The software enables users to access a comprehensive view of three prominent buildings located on the University of Western Ontario (UWO) campus.
 
